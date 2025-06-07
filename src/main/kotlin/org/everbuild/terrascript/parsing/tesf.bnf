@@ -1,0 +1,122 @@
+{
+  parserClass="org.everbuild.terrascript.parsing.TerrascriptParser"
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+  psiClassPrefix="Terrascript"
+  psiImplClassSuffix="Impl"
+  psiPackage="org.everbuild.terrascript.psi"
+  psiImplPackage="org.everbuild.terrascript.psi.impl"
+  elementTypeHolderClass="org.everbuild.terrascript.psi.TesfTypes"
+
+  recoverWhile="!statement_start"
+
+  tokens = [
+    IF = "if"
+    ELSE = "else"
+    WHILE = "while"
+    FOR = "for"
+
+    RETURN = "return"
+    FAIL = "fail"
+    BREAK = "break"
+    CONTINUE = "continue"
+
+    TRUE = "true"
+    FALSE = "false"
+    STR = "str"
+    NUM = "num"
+    BOOL = "bool"
+
+    // Literals
+    NUMBER = "regexp:[0-9]+(\\.[0-9]+)?"
+    STRING = "regexp:\"([^\"]|\\.)*\""
+
+    // Identifiers
+    ID = "regexp:[a-zA-Z_][a-zA-Z0-9_]*"
+
+    // Punctuation
+    EQ = "="
+    SEMICOLON = ";"
+    COMMA = ","
+    LPAREN = "("
+    RPAREN = ")"
+    LBRACE = "{"
+    RBRACE = "}"
+
+    // Operators
+    L_AND = "&&"
+    L_OR = "||"
+    L_NOT = "!"
+    PLUS = "+"
+    MINUS = "-"
+    MUL = "*"
+    DIV = "/"
+    MOD = "%"
+    EQEQ = "=="
+    NEQ = "!="
+    LT = ">"
+    GT = "<"
+    LE = ">="
+    GE = "<="
+
+    // Comments
+    COMMENT = "regexp://[^\r\n]*"
+
+    // Implicit rule for intellij
+    space = 'regexp:\s+'
+  ]
+}
+
+terrascriptFile ::= statement*
+
+// This is a "meta" rule. It doesn't create a node in the PSI tree, but it helps
+// the parser know what can start a statement. This is used by `recoverWhile`.
+meta statement_start ::= (STR | NUM | TRUE | FALSE | ID | IF | FOR | WHILE | RETURN | FAIL | BREAK | CONTINUE | COMMENT)
+
+statement ::= control_flow SEMICOLON
+            | variable_declaration SEMICOLON
+            | id_assignment SEMICOLON
+            | conditional
+            | while_loop
+            | for_loop
+            | expression SEMICOLON
+            | COMMENT
+
+inline_statement ::= variable_declaration
+                   | id_assignment
+                   | expression
+
+control_flow ::= RETURN | FAIL | BREAK | CONTINUE
+
+variable_declaration ::= vartype ID assignment?
+vartype ::= STR | NUM | BOOL
+assignment ::= EQ expression
+
+id_assignment ::= ID EQ expression
+
+conditional ::= if_block (elif_block*)? else_block?
+if_block ::= IF LPAREN expression RPAREN block
+else_block ::= ELSE block
+elif_block ::= ELSE if_block
+block ::= statement | LBRACE statement* RBRACE
+
+while_loop ::= WHILE LPAREN expression RPAREN block
+for_loop ::= FOR LPAREN inline_statement SEMICOLON inline_statement SEMICOLON inline_statement RPAREN block
+
+primary_expression ::= literal
+                     | ID LPAREN argument_list? RPAREN   // fn call
+                     | LPAREN expression RPAREN          // Group
+                     | unary primary_expression          // Unary operation
+                     | ID                                // Variable
+
+argument_list ::= expression (COMMA argument_list)?
+
+expression ::= primary_expression expression_tail?
+expression_tail ::= operator primary_expression expression_tail?
+
+literal ::= NUMBER | STRING | TRUE | FALSE
+
+operator ::= L_AND | L_OR
+           | PLUS | MINUS | MUL | DIV | MOD
+           | EQEQ | NEQ | LT | GT | LE | GE
+
+unary ::= L_NOT | MINUS
