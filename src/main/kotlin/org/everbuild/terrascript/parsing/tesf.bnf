@@ -104,15 +104,15 @@ assignment ::= EQ expression
 
 control_flow_statement ::= RETURN | FAIL | BREAK | CONTINUE
 
-conditional ::= if_statement (ELSE if_statement else_block?)*
-if_statement ::= IF expression block
+conditional ::= if_statement (ELSE if_statement)* else_block?
+if_statement ::= IF LPAREN expression RPAREN block
 else_block ::= ELSE block // for a standalone else
 
-while_loop ::= WHILE expression block
+while_loop ::= WHILE LPAREN expression RPAREN block
 for_loop ::= FOR LPAREN for_initializer? SEMICOLON expression? SEMICOLON for_update? RPAREN block
 
 private for_initializer ::= variable_declaration | expression
-private for_update ::= expression
+private for_update ::= id_assignment | expression
 
 // --- Expressions ---
 // This is the new, robust expression parsing structure. It correctly handles

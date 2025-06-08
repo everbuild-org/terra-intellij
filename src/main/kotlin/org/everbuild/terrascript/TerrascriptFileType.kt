@@ -13,5 +13,5 @@ object TerrascriptFileType : LanguageFileType(TerrascriptLanguage) {
 
     override fun getDefaultExtension(): @NlsSafe String = "tesf"
 
-    override fun getIcon(): Icon? = TerraIcons.TESF
+    override fun getIcon(): Icon? = TerraIcons.TesfFile
 }

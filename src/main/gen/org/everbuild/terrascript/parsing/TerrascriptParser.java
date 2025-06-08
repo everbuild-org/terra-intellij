@@ -191,18 +191,19 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // if_statement (ELSE if_statement else_block?)*
+  // if_statement (ELSE if_statement)* else_block?
   public static boolean conditional(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "conditional")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, CONDITIONAL, "<conditional>");
     r = if_statement(b, l + 1);
     r = r && conditional_1(b, l + 1);
+    r = r && conditional_2(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // (ELSE if_statement else_block?)*
+  // (ELSE if_statement)*
   private static boolean conditional_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "conditional_1")) return false;
     while (true) {
@@ -213,21 +214,20 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // ELSE if_statement else_block?
+  // ELSE if_statement
   private static boolean conditional_1_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "conditional_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, ELSE);
     r = r && if_statement(b, l + 1);
-    r = r && conditional_1_0_2(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // else_block?
-  private static boolean conditional_1_0_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "conditional_1_0_2")) return false;
+  private static boolean conditional_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "conditional_2")) return false;
     else_block(b, l + 1);
     return true;
   }
@@ -364,12 +364,13 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // expression
+  // id_assignment | expression
   static boolean for_update(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "for_update")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_);
-    r = expression(b, l + 1);
+    r = id_assignment(b, l + 1);
+    if (!r) r = expression(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -388,13 +389,14 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // IF expression block
+  // IF LPAREN expression RPAREN block
   public static boolean if_statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "if_statement")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, IF_STATEMENT, "<if statement>");
-    r = consumeToken(b, IF);
+    r = consumeTokens(b, 0, IF, LPAREN);
     r = r && expression(b, l + 1);
+    r = r && consumeToken(b, RPAREN);
     r = r && block(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -785,13 +787,14 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // WHILE expression block
+  // WHILE LPAREN expression RPAREN block
   public static boolean while_loop(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "while_loop")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, WHILE_LOOP, "<while loop>");
-    r = consumeToken(b, WHILE);
+    r = consumeTokens(b, 0, WHILE, LPAREN);
     r = r && expression(b, l + 1);
+    r = r && consumeToken(b, RPAREN);
     r = r && block(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;

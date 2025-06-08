@@ -1,5 +1,5 @@
 num randPrecision = 100;
-num radius = randomInt(randPrecision)/randPrecision*3 + 1;
+num radius = randomInt(randPrecision) / randPrecision * 3 + 1;
 num radiusCeil = ceil(radius);
 num radiusSquared = pow(radius, 2);
 

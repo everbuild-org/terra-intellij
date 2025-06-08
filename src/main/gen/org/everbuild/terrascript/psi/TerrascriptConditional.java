@@ -7,8 +7,8 @@ import com.intellij.psi.PsiElement;
 
 public interface TerrascriptConditional extends PsiElement {
 
-  @NotNull
-  List<TerrascriptElseBlock> getElseBlockList();
+  @Nullable
+  TerrascriptElseBlock getElseBlock();
 
   @NotNull
   List<TerrascriptIfStatement> getIfStatementList();

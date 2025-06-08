@@ -6,7 +6,7 @@ a small programming language. This plugin provides syntax highlighting for this 
 
 ## Currently implemented features
 - [x] Syntax highlighting
-- [ ] Formatting
+- [x] Formatting
 - [ ] Static Autocompletion
 - [ ] Dynamic Autocompletion
 - [ ] Snippets

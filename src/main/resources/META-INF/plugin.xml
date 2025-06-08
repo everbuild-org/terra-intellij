@@ -37,9 +37,21 @@
         <lang.syntaxHighlighterFactory
                 language="terrascript"
                 implementationClass="org.everbuild.terrascript.syntax.TerrascriptSyntaxHighlighterFactory"/>
-        
+
         <colorSettingsPage implementation="org.everbuild.terrascript.syntax.TerrascriptColorSettingsPage"
                            id="Terrascript"
-                           order="last" />
+                           order="last"/>
+
+        <lang.formatter language="terrascript"
+                        implementationClass="org.everbuild.terrascript.formatting.TerrascriptFormattingModelBuilder"/>
     </extensions>
+    <actions>
+        <action id="NEW_TERRASCRIPT_FILE"
+                class="org.everbuild.terrascript.action.CreateNewTesfFile"
+                text="Terrascript"
+                description="Create new Terrascript file"
+                icon="org.everbuild.terrascript.TerraIcons.TesfFile">
+            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFromTemplate"/>
+        </action>
+    </actions>
 </idea-plugin>

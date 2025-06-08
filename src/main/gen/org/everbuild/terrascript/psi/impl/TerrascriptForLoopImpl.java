@@ -41,6 +41,12 @@ public class TerrascriptForLoopImpl extends ASTWrapperPsiElement implements Terr
 
   @Override
   @Nullable
+  public TerrascriptIdAssignment getIdAssignment() {
+    return findChildByClass(TerrascriptIdAssignment.class);
+  }
+
+  @Override
+  @Nullable
   public TerrascriptVariableDeclaration getVariableDeclaration() {
     return findChildByClass(TerrascriptVariableDeclaration.class);
   }

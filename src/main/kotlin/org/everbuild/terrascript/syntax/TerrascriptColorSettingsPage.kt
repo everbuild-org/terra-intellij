@@ -11,7 +11,7 @@ import org.everbuild.terrascript.TerraIcons
 import org.jetbrains.annotations.NonNls
 
 class TerrascriptColorSettingsPage : ColorSettingsPage {
-    override fun getIcon(): Icon = TerraIcons.TESF
+    override fun getIcon(): Icon = TerraIcons.TesfFile
     override fun getHighlighter(): SyntaxHighlighter = TerrascriptSyntaxHighlighter()
 
     override fun getDemoText(): @NonNls String = """

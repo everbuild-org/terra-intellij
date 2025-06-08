@@ -5,5 +5,5 @@ import org.everbuild.terrascript.TerrascriptLanguage
 import org.jetbrains.annotations.NonNls
 
 class TerrascriptTokenType(debugName: @NonNls String) : IElementType(debugName, TerrascriptLanguage) {
-    override fun toString(): String = "tesf.${super.toString()}"
+    override fun toString(): String = super.toString()
 }
