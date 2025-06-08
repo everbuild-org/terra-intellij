@@ -25,7 +25,7 @@ import static org.everbuild.terrascript.psi.TesfTypes.*;
 EOL=\R
 WHITE_SPACE=\s+
 
-NUMBER=[0-9]+(\\.[0-9]+)?
+NUMBER=[0-9]+(\.[0-9]+)?
 STRING=\"([^\"]|\\.)*\"
 ID=[a-zA-Z_][a-zA-Z0-9_]*
 COMMENT="//"[^\r\n]*
