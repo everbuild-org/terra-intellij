@@ -8,9 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface TerrascriptBlock extends PsiElement {
 
   @NotNull
-  List<TerrascriptBlock> getBlockList();
-
-  @NotNull
   List<TerrascriptConditional> getConditionalList();
 
   @NotNull

@@ -29,12 +29,6 @@ public class TerrascriptBlockImpl extends ASTWrapperPsiElement implements Terras
 
   @Override
   @NotNull
-  public List<TerrascriptBlock> getBlockList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptBlock.class);
-  }
-
-  @Override
-  @NotNull
   public List<TerrascriptConditional> getConditionalList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptConditional.class);
   }

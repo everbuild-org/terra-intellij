@@ -88,12 +88,11 @@ private statement ::= (
     | while_loop
     | for_loop
     | control_flow_statement SEMICOLON
-    | block
     | COMMENT
     | SEMICOLON // Allow empty statements
 )
 
-block ::= LBRACE statement* RBRACE
+block ::= (LBRACE statement* RBRACE) | statement
 
 // --- Statements ---
 // We add 'pin=ID' and 'pin=EQ'. This tells the parser: once you see the identifier
@@ -115,8 +114,6 @@ private for_initializer ::= variable_declaration | expression
 private for_update ::= id_assignment | expression
 
 // --- Expressions ---
-// This is the new, robust expression parsing structure. It correctly handles
-// operator precedence and associativity, and avoids the dangerous right-recursion.
 expression ::= logical_or_expression
 private logical_or_expression ::= logical_and_expression (L_OR logical_and_expression)*
 private logical_and_expression ::= equality_expression (L_AND equality_expression)*

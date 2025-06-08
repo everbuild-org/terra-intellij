@@ -125,25 +125,36 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // LBRACE statement* RBRACE
+  // (LBRACE statement* RBRACE) | statement
   public static boolean block(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "block")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, BLOCK, "<block>");
-    r = consumeToken(b, LBRACE);
-    r = r && block_1(b, l + 1);
-    r = r && consumeToken(b, RBRACE);
+    r = block_0(b, l + 1);
+    if (!r) r = statement(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
+  // LBRACE statement* RBRACE
+  private static boolean block_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "block_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LBRACE);
+    r = r && block_0_1(b, l + 1);
+    r = r && consumeToken(b, RBRACE);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
   // statement*
-  private static boolean block_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "block_1")) return false;
+  private static boolean block_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "block_0_1")) return false;
     while (true) {
       int c = current_position_(b);
       if (!statement(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "block_1", c)) break;
+      if (!empty_element_parsed_guard_(b, "block_0_1", c)) break;
     }
     return true;
   }
@@ -606,7 +617,6 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   //     | while_loop
   //     | for_loop
   //     | control_flow_statement SEMICOLON
-  //     | block
   //     | COMMENT
   //     | SEMICOLON
   static boolean statement(PsiBuilder b, int l) {
@@ -620,7 +630,6 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
     if (!r) r = while_loop(b, l + 1);
     if (!r) r = for_loop(b, l + 1);
     if (!r) r = statement_6(b, l + 1);
-    if (!r) r = block(b, l + 1);
     if (!r) r = consumeToken(b, COMMENT);
     if (!r) r = consumeToken(b, SEMICOLON);
     exit_section_(b, l, m, r, false, null);
