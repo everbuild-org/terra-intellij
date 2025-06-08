@@ -51,6 +51,10 @@ public class TerrascriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitStatement(@NotNull TerrascriptStatement o) {
+    visitPsiElement(o);
+  }
+
   public void visitVariableDeclaration(@NotNull TerrascriptVariableDeclaration o) {
     visitPsiElement(o);
   }

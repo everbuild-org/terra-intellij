@@ -8,24 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface TerrascriptBlock extends PsiElement {
 
   @NotNull
-  List<TerrascriptConditional> getConditionalList();
-
-  @NotNull
-  List<TerrascriptControlFlowStatement> getControlFlowStatementList();
-
-  @NotNull
-  List<TerrascriptExpression> getExpressionList();
-
-  @NotNull
-  List<TerrascriptForLoop> getForLoopList();
-
-  @NotNull
-  List<TerrascriptIdAssignment> getIdAssignmentList();
-
-  @NotNull
-  List<TerrascriptVariableDeclaration> getVariableDeclarationList();
-
-  @NotNull
-  List<TerrascriptWhileLoop> getWhileLoopList();
+  List<TerrascriptStatement> getStatementList();
 
 }

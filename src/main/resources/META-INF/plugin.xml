@@ -44,6 +44,9 @@
 
         <lang.formatter language="terrascript"
                         implementationClass="org.everbuild.terrascript.formatting.TerrascriptFormattingModelBuilder"/>
+
+        <completion.contributor language="terrascript"
+                                implementationClass="org.everbuild.terrascript.completion.TerrascriptCompletionContributor"/>
     </extensions>
     <actions>
         <action id="NEW_TERRASCRIPT_FILE"

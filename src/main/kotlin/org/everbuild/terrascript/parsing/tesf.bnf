@@ -80,7 +80,7 @@ private meta statement_start ::= (STR | NUM | BOOL | ID | IF | FOR | WHILE | RET
 
 // The main statement rule. Notice it's marked as 'private'.
 // This makes the generated PSI tree cleaner.
-private statement ::= (
+statement ::= (
     variable_declaration SEMICOLON
     | id_assignment SEMICOLON
     | expression SEMICOLON

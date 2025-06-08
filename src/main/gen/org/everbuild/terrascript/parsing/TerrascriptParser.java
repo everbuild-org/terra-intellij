@@ -619,10 +619,10 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   //     | control_flow_statement SEMICOLON
   //     | COMMENT
   //     | SEMICOLON
-  static boolean statement(PsiBuilder b, int l) {
+  public static boolean statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "statement")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_);
+    Marker m = enter_section_(b, l, _NONE_, STATEMENT, "<statement>");
     r = statement_0(b, l + 1);
     if (!r) r = statement_1(b, l + 1);
     if (!r) r = statement_2(b, l + 1);

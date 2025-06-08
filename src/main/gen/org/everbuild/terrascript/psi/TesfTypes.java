@@ -21,6 +21,7 @@ public interface TesfTypes {
   IElementType ID_ASSIGNMENT = new TerrascriptElementType("ID_ASSIGNMENT");
   IElementType IF_STATEMENT = new TerrascriptElementType("IF_STATEMENT");
   IElementType LITERAL = new TerrascriptElementType("LITERAL");
+  IElementType STATEMENT = new TerrascriptElementType("STATEMENT");
   IElementType VARIABLE_DECLARATION = new TerrascriptElementType("VARIABLE_DECLARATION");
   IElementType VARTYPE = new TerrascriptElementType("VARTYPE");
   IElementType WHILE_LOOP = new TerrascriptElementType("WHILE_LOOP");
@@ -99,6 +100,9 @@ public interface TesfTypes {
       }
       else if (type == LITERAL) {
         return new TerrascriptLiteralImpl(node);
+      }
+      else if (type == STATEMENT) {
+        return new TerrascriptStatementImpl(node);
       }
       else if (type == VARIABLE_DECLARATION) {
         return new TerrascriptVariableDeclarationImpl(node);
