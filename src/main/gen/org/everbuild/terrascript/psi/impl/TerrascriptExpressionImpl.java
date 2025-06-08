@@ -28,15 +28,21 @@ public class TerrascriptExpressionImpl extends ASTWrapperPsiElement implements T
   }
 
   @Override
-  @Nullable
-  public TerrascriptExpressionTail getExpressionTail() {
-    return findChildByClass(TerrascriptExpressionTail.class);
+  @NotNull
+  public List<TerrascriptArgumentList> getArgumentListList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptArgumentList.class);
   }
 
   @Override
   @NotNull
-  public TerrascriptPrimaryExpression getPrimaryExpression() {
-    return findNotNullChildByClass(TerrascriptPrimaryExpression.class);
+  public List<TerrascriptExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptExpression.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TerrascriptLiteral> getLiteralList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptLiteral.class);
   }
 
 }

@@ -29,8 +29,50 @@ public class TerrascriptBlockImpl extends ASTWrapperPsiElement implements Terras
 
   @Override
   @NotNull
-  public List<TerrascriptStatement> getStatementList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptStatement.class);
+  public List<TerrascriptBlock> getBlockList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptBlock.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TerrascriptConditional> getConditionalList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptConditional.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TerrascriptControlFlowStatement> getControlFlowStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptControlFlowStatement.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TerrascriptExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptExpression.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TerrascriptForLoop> getForLoopList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptForLoop.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TerrascriptIdAssignment> getIdAssignmentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptIdAssignment.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TerrascriptVariableDeclaration> getVariableDeclarationList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptVariableDeclaration.class);
+  }
+
+  @Override
+  @NotNull
+  public List<TerrascriptWhileLoop> getWhileLoopList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptWhileLoop.class);
   }
 
 }

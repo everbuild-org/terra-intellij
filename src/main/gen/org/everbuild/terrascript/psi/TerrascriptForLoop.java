@@ -11,6 +11,9 @@ public interface TerrascriptForLoop extends PsiElement {
   TerrascriptBlock getBlock();
 
   @NotNull
-  List<TerrascriptInlineStatement> getInlineStatementList();
+  List<TerrascriptExpression> getExpressionList();
+
+  @Nullable
+  TerrascriptVariableDeclaration getVariableDeclaration();
 
 }

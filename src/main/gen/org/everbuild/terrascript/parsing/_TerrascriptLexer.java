@@ -651,7 +651,7 @@ public class _TerrascriptLexer implements FlexLexer {
           // fall through
           case 53: break;
           case 14:
-            { return GT;
+            { return LT;
             }
           // fall through
           case 54: break;
@@ -661,7 +661,7 @@ public class _TerrascriptLexer implements FlexLexer {
           // fall through
           case 55: break;
           case 16:
-            { return LT;
+            { return GT;
             }
           // fall through
           case 56: break;
@@ -701,7 +701,7 @@ public class _TerrascriptLexer implements FlexLexer {
           // fall through
           case 63: break;
           case 24:
-            { return GE;
+            { return LE;
             }
           // fall through
           case 64: break;
@@ -711,7 +711,7 @@ public class _TerrascriptLexer implements FlexLexer {
           // fall through
           case 65: break;
           case 26:
-            { return LE;
+            { return GE;
             }
           // fall through
           case 66: break;

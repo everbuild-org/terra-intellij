@@ -11,14 +11,14 @@ import static org.everbuild.terrascript.psi.TesfTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.everbuild.terrascript.psi.*;
 
-public class TerrascriptIfBlockImpl extends ASTWrapperPsiElement implements TerrascriptIfBlock {
+public class TerrascriptIfStatementImpl extends ASTWrapperPsiElement implements TerrascriptIfStatement {
 
-  public TerrascriptIfBlockImpl(@NotNull ASTNode node) {
+  public TerrascriptIfStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TerrascriptVisitor visitor) {
-    visitor.visitIfBlock(this);
+    visitor.visitIfStatement(this);
   }
 
   @Override

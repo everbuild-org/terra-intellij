@@ -29,7 +29,6 @@ NUMBER=[0-9]+(\\.[0-9]+)?
 STRING=\"([^\"]|\\.)*\"
 ID=[a-zA-Z_][a-zA-Z0-9_]*
 COMMENT="//"[^\r\n]*
-SPACE=[ \t\n\x0B\f\r]+
 
 %%
 <YYINITIAL> {
@@ -65,16 +64,15 @@ SPACE=[ \t\n\x0B\f\r]+
   "%"                 { return MOD; }
   "=="                { return EQEQ; }
   "!="                { return NEQ; }
-  ">"                 { return LT; }
-  "<"                 { return GT; }
-  ">="                { return LE; }
-  "<="                { return GE; }
+  "<"                 { return LT; }
+  ">"                 { return GT; }
+  "<="                { return LE; }
+  ">="                { return GE; }
 
   {NUMBER}            { return NUMBER; }
   {STRING}            { return STRING; }
   {ID}                { return ID; }
   {COMMENT}           { return COMMENT; }
-  {SPACE}             { return SPACE; }
 
 }
 

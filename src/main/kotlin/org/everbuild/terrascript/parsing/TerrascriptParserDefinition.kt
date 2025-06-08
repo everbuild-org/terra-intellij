@@ -16,14 +16,30 @@ import org.everbuild.terrascript.psi.TerrascriptFile
 import org.everbuild.terrascript.psi.TesfTypes
 
 class TerrascriptParserDefinition : ParserDefinition {
-    override fun createLexer(p0: Project?): Lexer = TerrascriptLexerAdapter()
-    override fun createParser(p0: Project?): PsiParser = TerrascriptParser()
-    override fun getFileNodeType(): IFileElementType = file
-    override fun getCommentTokens(): TokenSet = TokenSet.create(TesfTypes.COMMENT)
-    override fun getStringLiteralElements(): TokenSet = TokenSet.create(TesfTypes.STRING)
-    override fun createElement(node: ASTNode): PsiElement = TesfTypes.Factory.createElement(node)
-    override fun getWhitespaceTokens(): TokenSet = TokenSet.create(TokenType.WHITE_SPACE)
-    override fun createFile(viewProvider: FileViewProvider): PsiFile = TerrascriptFile(viewProvider)
+    override fun createLexer(p0: Project?): Lexer {
+        return TerrascriptLexerAdapter()
+    }
+    override fun createParser(p0: Project?): PsiParser {
+        return TerrascriptParser()
+    }
+    override fun getFileNodeType(): IFileElementType {
+        return file
+    }
+    override fun getCommentTokens(): TokenSet {
+        return TokenSet.create(TesfTypes.COMMENT)
+    }
+    override fun getStringLiteralElements(): TokenSet {
+        return TokenSet.create(TesfTypes.STRING)
+    }
+    override fun createElement(node: ASTNode): PsiElement {
+        return TesfTypes.Factory.createElement(node)
+    }
+    override fun getWhitespaceTokens(): TokenSet {
+        return TokenSet.create(TokenType.WHITE_SPACE)
+    }
+    override fun createFile(viewProvider: FileViewProvider): PsiFile {
+        return TerrascriptFile(viewProvider)
+    }
 
     val file = IFileElementType(TerrascriptLanguage)
 }

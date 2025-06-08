@@ -35,8 +35,14 @@ public class TerrascriptForLoopImpl extends ASTWrapperPsiElement implements Terr
 
   @Override
   @NotNull
-  public List<TerrascriptInlineStatement> getInlineStatementList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptInlineStatement.class);
+  public List<TerrascriptExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptExpression.class);
+  }
+
+  @Override
+  @Nullable
+  public TerrascriptVariableDeclaration getVariableDeclaration() {
+    return findChildByClass(TerrascriptVariableDeclaration.class);
   }
 
 }

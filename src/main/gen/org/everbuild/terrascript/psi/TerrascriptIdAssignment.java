@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface TerrascriptIdAssignment extends PsiElement {
 
-  @NotNull
+  @Nullable
   TerrascriptExpression getExpression();
 
   @NotNull

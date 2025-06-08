@@ -7,7 +7,7 @@ import javax.swing.Icon
 import org.jetbrains.annotations.NonNls
 
 object TerrascriptFileType : LanguageFileType(TerrascriptLanguage) {
-    override fun getName(): @NonNls String = "Terrascript"
+    override fun getName(): @NonNls String = "terrascript"
 
     override fun getDescription(): @NlsContexts.Label String = "Terra world generation script"
 

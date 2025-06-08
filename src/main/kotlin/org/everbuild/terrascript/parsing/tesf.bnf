@@ -6,8 +6,13 @@
   psiPackage="org.everbuild.terrascript.psi"
   psiImplPackage="org.everbuild.terrascript.psi.impl"
   elementTypeHolderClass="org.everbuild.terrascript.psi.TesfTypes"
+  elementTypeClass="org.everbuild.terrascript.parsing.TerrascriptElementType"
+  tokenTypeClass="org.everbuild.terrascript.parsing.TerrascriptTokenType"
 
-  recoverWhile="!statement_start"
+  // We add 'LBRACE' to the recovery set to help with unterminated blocks.
+  recoverWhile="!statement_start_or_brace"
+  // This helps make parsing more efficient by not creating PSI nodes for simple intermediate rules.
+  extraRoot("statement")="true"
 
   tokens = [
     IF = "if"
@@ -53,70 +58,78 @@
     MOD = "%"
     EQEQ = "=="
     NEQ = "!="
-    LT = ">"
-    GT = "<"
-    LE = ">="
-    GE = "<="
+    LT = "<"
+    GT = ">"
+    LE = "<="
+    GE = ">="
 
     // Comments
     COMMENT = "regexp://[^\r\n]*"
 
     // Implicit rule for intellij
-    space = 'regexp:\s+'
+//    space = 'regexp:\s+'
   ]
 }
 
 terrascriptFile ::= statement*
 
-// This is a "meta" rule. It doesn't create a node in the PSI tree, but it helps
-// the parser know what can start a statement. This is used by `recoverWhile`.
-meta statement_start ::= (STR | NUM | TRUE | FALSE | ID | IF | FOR | WHILE | RETURN | FAIL | BREAK | CONTINUE | COMMENT)
+// This "meta" rule helps the parser know what can start a statement.
+// It's used by `recoverWhile` for better error handling.
+private meta statement_start_or_brace ::= statement_start | LBRACE
+private meta statement_start ::= (STR | NUM | BOOL | ID | IF | FOR | WHILE | RETURN | FAIL | BREAK | CONTINUE | COMMENT | LPAREN)
 
-statement ::= control_flow SEMICOLON
-            | variable_declaration SEMICOLON
-            | id_assignment SEMICOLON
-            | conditional
-            | while_loop
-            | for_loop
-            | expression SEMICOLON
-            | COMMENT
+// The main statement rule. Notice it's marked as 'private'.
+// This makes the generated PSI tree cleaner.
+private statement ::= (
+    variable_declaration SEMICOLON
+    | id_assignment SEMICOLON
+    | expression SEMICOLON
+    | conditional
+    | while_loop
+    | for_loop
+    | control_flow_statement SEMICOLON
+    | block
+    | COMMENT
+    | SEMICOLON // Allow empty statements
+)
 
-inline_statement ::= variable_declaration
-                   | id_assignment
-                   | expression
+block ::= LBRACE statement* RBRACE
 
-control_flow ::= RETURN | FAIL | BREAK | CONTINUE
-
-variable_declaration ::= vartype ID assignment?
-vartype ::= STR | NUM | BOOL
+// --- Statements ---
+// We add 'pin=ID' and 'pin=EQ'. This tells the parser: once you see the identifier
+// (or equals sign), commit to this rule. This dramatically improves error recovery.
+variable_declaration ::= vartype ID assignment? {pin=2}
+id_assignment ::= ID EQ expression {pin=2}
 assignment ::= EQ expression
 
-id_assignment ::= ID EQ expression
+control_flow_statement ::= RETURN | FAIL | BREAK | CONTINUE
 
-conditional ::= if_block (elif_block*)? else_block?
-if_block ::= IF LPAREN expression RPAREN block
-else_block ::= ELSE block
-elif_block ::= ELSE if_block
-block ::= statement | LBRACE statement* RBRACE
+conditional ::= if_statement (ELSE if_statement else_block?)*
+if_statement ::= IF expression block
+else_block ::= ELSE block // for a standalone else
 
-while_loop ::= WHILE LPAREN expression RPAREN block
-for_loop ::= FOR LPAREN inline_statement SEMICOLON inline_statement SEMICOLON inline_statement RPAREN block
+while_loop ::= WHILE expression block
+for_loop ::= FOR LPAREN for_initializer? SEMICOLON expression? SEMICOLON for_update? RPAREN block
 
-primary_expression ::= literal
-                     | ID LPAREN argument_list? RPAREN   // fn call
-                     | LPAREN expression RPAREN          // Group
-                     | unary primary_expression          // Unary operation
-                     | ID                                // Variable
+private for_initializer ::= variable_declaration | expression
+private for_update ::= expression
 
-argument_list ::= expression (COMMA argument_list)?
+// --- Expressions ---
+// This is the new, robust expression parsing structure. It correctly handles
+// operator precedence and associativity, and avoids the dangerous right-recursion.
+expression ::= logical_or_expression
+private logical_or_expression ::= logical_and_expression (L_OR logical_and_expression)*
+private logical_and_expression ::= equality_expression (L_AND equality_expression)*
+private equality_expression ::= relational_expression ((EQEQ | NEQ) relational_expression)*
+private relational_expression ::= additive_expression ((LT | GT | LE | GE) additive_expression)*
+private additive_expression ::= multiplicative_expression ((PLUS | MINUS) multiplicative_expression)*
+private multiplicative_expression ::= unary_expression ((MUL | DIV | MOD) unary_expression)*
+private unary_expression ::= (MINUS | L_NOT) unary_expression | call_expression
 
-expression ::= primary_expression expression_tail?
-expression_tail ::= operator primary_expression expression_tail?
+private call_expression ::= primary_expression (LPAREN argument_list? RPAREN)* // Function call suffix
 
+private primary_expression ::= literal | ID | LPAREN expression RPAREN
+
+argument_list ::= expression (COMMA expression)*
 literal ::= NUMBER | STRING | TRUE | FALSE
-
-operator ::= L_AND | L_OR
-           | PLUS | MINUS | MUL | DIV | MOD
-           | EQEQ | NEQ | LT | GT | LE | GE
-
-unary ::= L_NOT | MINUS
+vartype ::= STR | NUM | BOOL

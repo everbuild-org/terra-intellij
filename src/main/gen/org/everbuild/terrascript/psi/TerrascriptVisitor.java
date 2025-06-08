@@ -23,11 +23,7 @@ public class TerrascriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitControlFlow(@NotNull TerrascriptControlFlow o) {
-    visitPsiElement(o);
-  }
-
-  public void visitElifBlock(@NotNull TerrascriptElifBlock o) {
+  public void visitControlFlowStatement(@NotNull TerrascriptControlFlowStatement o) {
     visitPsiElement(o);
   }
 
@@ -39,10 +35,6 @@ public class TerrascriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitExpressionTail(@NotNull TerrascriptExpressionTail o) {
-    visitPsiElement(o);
-  }
-
   public void visitForLoop(@NotNull TerrascriptForLoop o) {
     visitPsiElement(o);
   }
@@ -51,35 +43,11 @@ public class TerrascriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitIfBlock(@NotNull TerrascriptIfBlock o) {
-    visitPsiElement(o);
-  }
-
-  public void visitInlineStatement(@NotNull TerrascriptInlineStatement o) {
+  public void visitIfStatement(@NotNull TerrascriptIfStatement o) {
     visitPsiElement(o);
   }
 
   public void visitLiteral(@NotNull TerrascriptLiteral o) {
-    visitPsiElement(o);
-  }
-
-  public void visitOperator(@NotNull TerrascriptOperator o) {
-    visitPsiElement(o);
-  }
-
-  public void visitPrimaryExpression(@NotNull TerrascriptPrimaryExpression o) {
-    visitPsiElement(o);
-  }
-
-  public void visitStatement(@NotNull TerrascriptStatement o) {
-    visitPsiElement(o);
-  }
-
-  public void visitStatementStart(@NotNull TerrascriptStatementStart o) {
-    visitPsiElement(o);
-  }
-
-  public void visitUnary(@NotNull TerrascriptUnary o) {
     visitPsiElement(o);
   }
 

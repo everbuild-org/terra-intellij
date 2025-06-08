@@ -7,10 +7,13 @@ import com.intellij.psi.PsiElement;
 
 public interface TerrascriptExpression extends PsiElement {
 
-  @Nullable
-  TerrascriptExpressionTail getExpressionTail();
+  @NotNull
+  List<TerrascriptArgumentList> getArgumentListList();
 
   @NotNull
-  TerrascriptPrimaryExpression getPrimaryExpression();
+  List<TerrascriptExpression> getExpressionList();
+
+  @NotNull
+  List<TerrascriptLiteral> getLiteralList();
 
 }

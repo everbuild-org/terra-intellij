@@ -5,12 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TerrascriptStatementStart extends PsiElement {
-
-  @Nullable
-  PsiElement getComment();
-
-  @Nullable
-  PsiElement getId();
+public interface TerrascriptControlFlowStatement extends PsiElement {
 
 }

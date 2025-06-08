@@ -29,20 +29,14 @@ public class TerrascriptConditionalImpl extends ASTWrapperPsiElement implements 
 
   @Override
   @NotNull
-  public List<TerrascriptElifBlock> getElifBlockList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptElifBlock.class);
-  }
-
-  @Override
-  @Nullable
-  public TerrascriptElseBlock getElseBlock() {
-    return findChildByClass(TerrascriptElseBlock.class);
+  public List<TerrascriptElseBlock> getElseBlockList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptElseBlock.class);
   }
 
   @Override
   @NotNull
-  public TerrascriptIfBlock getIfBlock() {
-    return findNotNullChildByClass(TerrascriptIfBlock.class);
+  public List<TerrascriptIfStatement> getIfStatementList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptIfStatement.class);
   }
 
 }

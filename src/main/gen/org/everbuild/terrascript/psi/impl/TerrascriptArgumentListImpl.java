@@ -28,15 +28,9 @@ public class TerrascriptArgumentListImpl extends ASTWrapperPsiElement implements
   }
 
   @Override
-  @Nullable
-  public TerrascriptArgumentList getArgumentList() {
-    return findChildByClass(TerrascriptArgumentList.class);
-  }
-
-  @Override
   @NotNull
-  public TerrascriptExpression getExpression() {
-    return findNotNullChildByClass(TerrascriptExpression.class);
+  public List<TerrascriptExpression> getExpressionList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptExpression.class);
   }
 
 }

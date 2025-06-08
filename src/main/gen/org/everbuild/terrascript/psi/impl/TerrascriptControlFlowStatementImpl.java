@@ -11,38 +11,20 @@ import static org.everbuild.terrascript.psi.TesfTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.everbuild.terrascript.psi.*;
 
-public class TerrascriptInlineStatementImpl extends ASTWrapperPsiElement implements TerrascriptInlineStatement {
+public class TerrascriptControlFlowStatementImpl extends ASTWrapperPsiElement implements TerrascriptControlFlowStatement {
 
-  public TerrascriptInlineStatementImpl(@NotNull ASTNode node) {
+  public TerrascriptControlFlowStatementImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TerrascriptVisitor visitor) {
-    visitor.visitInlineStatement(this);
+    visitor.visitControlFlowStatement(this);
   }
 
   @Override
   public void accept(@NotNull PsiElementVisitor visitor) {
     if (visitor instanceof TerrascriptVisitor) accept((TerrascriptVisitor)visitor);
     else super.accept(visitor);
-  }
-
-  @Override
-  @Nullable
-  public TerrascriptExpression getExpression() {
-    return findChildByClass(TerrascriptExpression.class);
-  }
-
-  @Override
-  @Nullable
-  public TerrascriptIdAssignment getIdAssignment() {
-    return findChildByClass(TerrascriptIdAssignment.class);
-  }
-
-  @Override
-  @Nullable
-  public TerrascriptVariableDeclaration getVariableDeclaration() {
-    return findChildByClass(TerrascriptVariableDeclaration.class);
   }
 
 }

@@ -28,9 +28,9 @@ public class TerrascriptIdAssignmentImpl extends ASTWrapperPsiElement implements
   }
 
   @Override
-  @NotNull
+  @Nullable
   public TerrascriptExpression getExpression() {
-    return findNotNullChildByClass(TerrascriptExpression.class);
+    return findChildByClass(TerrascriptExpression.class);
   }
 
   @Override

@@ -8,4 +8,5 @@ import org.everbuild.terrascript.TerrascriptLanguage
 
 class TerrascriptFile(viewProvider: FileViewProvider) : PsiFileBase(viewProvider, TerrascriptLanguage) {
     override fun getFileType(): FileType = TerrascriptFileType
+    override fun toString(): String = "Terrascript File"
 }

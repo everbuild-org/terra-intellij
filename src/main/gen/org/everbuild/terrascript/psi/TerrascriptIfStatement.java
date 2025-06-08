@@ -5,15 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TerrascriptExpressionTail extends PsiElement {
-
-  @Nullable
-  TerrascriptExpressionTail getExpressionTail();
+public interface TerrascriptIfStatement extends PsiElement {
 
   @NotNull
-  TerrascriptOperator getOperator();
+  TerrascriptBlock getBlock();
 
   @NotNull
-  TerrascriptPrimaryExpression getPrimaryExpression();
+  TerrascriptExpression getExpression();
 
 }
