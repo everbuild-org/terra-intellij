@@ -16,4 +16,7 @@ public interface TerrascriptExpression extends PsiElement {
   @NotNull
   List<TerrascriptLiteral> getLiteralList();
 
+  @NotNull
+  List<TerrascriptVariableUsage> getVariableUsageList();
+
 }

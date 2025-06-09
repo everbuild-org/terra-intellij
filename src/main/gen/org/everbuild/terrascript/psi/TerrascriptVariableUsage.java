@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TerrascriptIdAssignment extends PsiElement {
-
-  @Nullable
-  TerrascriptExpression getExpression();
+public interface TerrascriptVariableUsage extends PsiElement {
 
   @NotNull
-  TerrascriptVariableUsage getVariableUsage();
+  PsiElement getId();
 
 }

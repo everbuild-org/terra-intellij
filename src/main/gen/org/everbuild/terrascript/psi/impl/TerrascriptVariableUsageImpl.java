@@ -11,14 +11,14 @@ import static org.everbuild.terrascript.psi.TesfTypes.*;
 import org.everbuild.terrascript.psi.TerrascriptPsiElementImpl;
 import org.everbuild.terrascript.psi.*;
 
-public class TerrascriptIdAssignmentImpl extends TerrascriptPsiElementImpl implements TerrascriptIdAssignment {
+public class TerrascriptVariableUsageImpl extends TerrascriptPsiElementImpl implements TerrascriptVariableUsage {
 
-  public TerrascriptIdAssignmentImpl(@NotNull ASTNode node) {
+  public TerrascriptVariableUsageImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TerrascriptVisitor visitor) {
-    visitor.visitIdAssignment(this);
+    visitor.visitVariableUsage(this);
   }
 
   @Override
@@ -28,15 +28,9 @@ public class TerrascriptIdAssignmentImpl extends TerrascriptPsiElementImpl imple
   }
 
   @Override
-  @Nullable
-  public TerrascriptExpression getExpression() {
-    return findChildByClass(TerrascriptExpression.class);
-  }
-
-  @Override
   @NotNull
-  public TerrascriptVariableUsage getVariableUsage() {
-    return findNotNullChildByClass(TerrascriptVariableUsage.class);
+  public PsiElement getId() {
+    return findNotNullChildByType(ID);
   }
 
 }

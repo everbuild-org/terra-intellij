@@ -398,12 +398,13 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ID EQ expression SEMICOLON
+  // variable_usage EQ expression SEMICOLON
   public static boolean id_assignment(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "id_assignment")) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, ID_ASSIGNMENT, "<id assignment>");
-    r = consumeTokens(b, 2, ID, EQ);
+    r = variable_usage(b, l + 1);
+    r = r && consumeToken(b, EQ);
     p = r; // pin = 2
     r = r && report_error_(b, expression(b, l + 1));
     r = p && consumeToken(b, SEMICOLON) && r;
@@ -552,13 +553,13 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // literal | ID | LPAREN expression RPAREN
+  // literal | variable_usage | LPAREN expression RPAREN
   static boolean primary_expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "primary_expression")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_);
     r = literal(b, l + 1);
-    if (!r) r = consumeToken(b, ID);
+    if (!r) r = variable_usage(b, l + 1);
     if (!r) r = primary_expression_2(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -735,6 +736,17 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "variable_declaration_2")) return false;
     assignment(b, l + 1);
     return true;
+  }
+
+  /* ********************************************************** */
+  // ID
+  public static boolean variable_usage(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "variable_usage")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, VARIABLE_USAGE, "<variable usage>");
+    r = consumeToken(b, ID);
+    exit_section_(b, l, m, r, false, null);
+    return r;
   }
 
   /* ********************************************************** */

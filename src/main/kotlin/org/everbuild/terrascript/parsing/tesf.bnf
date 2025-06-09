@@ -85,7 +85,7 @@ variable_declaration ::= vartype ID assignment? SEMICOLON {
     pin=2
 }
 
-id_assignment ::= ID EQ expression SEMICOLON {pin=2}
+id_assignment ::= variable_usage EQ expression SEMICOLON {pin=2}
 expression_statement ::= expression SEMICOLON
 control_flow_statement ::= (RETURN | FAIL | BREAK | CONTINUE) SEMICOLON
 assignment ::= EQ expression
@@ -115,7 +115,9 @@ private unary_expression ::= (MINUS | L_NOT) unary_expression | call_or_primary_
 private call_or_primary_expression ::= call_expression | primary_expression
 
 call_expression ::= ID LPAREN argument_list? RPAREN
-private primary_expression ::= literal | ID | LPAREN expression RPAREN
+private primary_expression ::= literal | variable_usage | LPAREN expression RPAREN
+
+variable_usage ::= ID
 
 argument_list ::= expression (COMMA expression)*
 literal ::= NUMBER | STRING | TRUE | FALSE

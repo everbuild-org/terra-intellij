@@ -45,4 +45,10 @@ public class TerrascriptExpressionImpl extends TerrascriptPsiElementImpl impleme
     return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptLiteral.class);
   }
 
+  @Override
+  @NotNull
+  public List<TerrascriptVariableUsage> getVariableUsageList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TerrascriptVariableUsage.class);
+  }
+
 }
