@@ -5,15 +5,21 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TerrascriptVariableDeclaration extends PsiElement {
+public interface TerrascriptVariableDeclaration extends TerrascriptNamedElement {
 
   @Nullable
   TerrascriptAssignment getAssignment();
 
   @NotNull
-  TerrascriptIdToken getIdToken();
+  TerrascriptVartype getVartype();
 
   @NotNull
-  TerrascriptVartype getVartype();
+  PsiElement getId();
+
+  String getName();
+
+  TerrascriptVariableDeclaration setName(String newName);
+
+  PsiElement getNameIdentifier();
 
 }

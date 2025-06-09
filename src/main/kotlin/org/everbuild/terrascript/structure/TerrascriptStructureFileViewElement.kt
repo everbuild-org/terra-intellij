@@ -20,7 +20,7 @@ class TerrascriptStructureFileViewElement(private val element: PsiElement) : Str
     override fun getChildren(): Array<TreeElement> {
         return PsiTreeUtil.findChildrenOfType(element, TerrascriptVariableDeclaration::class.java).map {
             TerrascriptStructureFileVariableDeclarationElement(it)
-        }.toTypedArray<TreeElement>().also { println(it) }
+        }.toTypedArray<TreeElement>()
     }
 
     override fun navigate(requestFocus: Boolean) {
@@ -36,6 +36,6 @@ class TerrascriptStructureFileViewElement(private val element: PsiElement) : Str
     }
 
     override fun getAlphaSortKey(): String {
-        return (element as? TerrascriptVariableDeclaration)?.idToken?.text ?: ""
+        return (element as? TerrascriptVariableDeclaration)?.id?.text ?: ""
     }
 }

@@ -35,8 +35,8 @@ public class TerrascriptCallExpressionImpl extends ASTWrapperPsiElement implemen
 
   @Override
   @NotNull
-  public TerrascriptIdToken getIdToken() {
-    return findNotNullChildByClass(TerrascriptIdToken.class);
+  public PsiElement getId() {
+    return findNotNullChildByType(ID);
   }
 
 }

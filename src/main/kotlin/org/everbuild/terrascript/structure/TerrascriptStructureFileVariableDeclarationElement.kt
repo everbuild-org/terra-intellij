@@ -34,6 +34,6 @@ class TerrascriptStructureFileVariableDeclarationElement(private val element: Ps
     }
 
     override fun getAlphaSortKey(): String {
-        return (element as? TerrascriptVariableDeclaration)?.idToken?.text ?: ""
+        return (element as? TerrascriptVariableDeclaration)?.id?.text ?: ""
     }
 }

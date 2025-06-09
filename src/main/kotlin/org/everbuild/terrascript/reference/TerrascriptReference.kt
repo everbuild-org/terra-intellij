@@ -5,8 +5,7 @@ import com.intellij.psi.*
 import com.intellij.psi.util.PsiTreeUtil
 import org.everbuild.terrascript.psi.TerrascriptVariableDeclaration
 
-class TerrascriptReference(element: PsiElement, textRange: TextRange) :
-    PsiReferenceBase<PsiElement>(element, textRange), PsiPolyVariantReference {
+class TerrascriptReference(element: PsiElement, textRange: TextRange) : PsiPolyVariantReferenceBase<PsiElement>(element, textRange) {
 
     private val key: String = element.text
 
@@ -19,7 +18,7 @@ class TerrascriptReference(element: PsiElement, textRange: TextRange) :
         val file = myElement.containingFile
 
         val declarations = PsiTreeUtil.findChildrenOfType(file, TerrascriptVariableDeclaration::class.java)
-            .filter { it.idToken.text == key && it.textOffset < myElement.textOffset }
+            .filter { it.id.text == key && it.textOffset < myElement.textOffset }
 
         val lastDeclaration = declarations.lastOrNull()
 

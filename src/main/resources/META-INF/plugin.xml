@@ -25,7 +25,7 @@
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
-        <fileType name="Terrascript"
+        <fileType name="terrascript"
                   implementationClass="org.everbuild.terrascript.TerrascriptFileType"
                   fieldName="INSTANCE"
                   language="terrascript"
@@ -39,7 +39,7 @@
                 implementationClass="org.everbuild.terrascript.syntax.TerrascriptSyntaxHighlighterFactory"/>
 
         <colorSettingsPage implementation="org.everbuild.terrascript.syntax.TerrascriptColorSettingsPage"
-                           id="Terrascript"
+                           id="terrascript"
                            order="last"/>
 
         <lang.formatter language="terrascript"
@@ -53,6 +53,10 @@
 
         <lang.psiStructureViewFactory language="terrascript"
                                       implementationClass="org.everbuild.terrascript.structure.TerrascriptStructureViewFactory"/>
+
+        <lang.refactoringSupport
+                language="terrascript"
+                implementationClass="org.everbuild.terrascript.reference.TerrascriptRefactoringSupportProvider"/>
     </extensions>
     <actions>
         <action id="NEW_TERRASCRIPT_FILE"

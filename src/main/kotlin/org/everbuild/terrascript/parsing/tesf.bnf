@@ -5,14 +5,12 @@
   psiImplClassSuffix="Impl"
   psiPackage="org.everbuild.terrascript.psi"
   psiImplPackage="org.everbuild.terrascript.psi.impl"
+  psiImplUtilClass="org.everbuild.terrascript.psi.TerrascriptPsiUtil"
   elementTypeHolderClass="org.everbuild.terrascript.psi.TesfTypes"
   elementTypeClass="org.everbuild.terrascript.parsing.TerrascriptElementType"
   tokenTypeClass="org.everbuild.terrascript.parsing.TerrascriptTokenType"
 
-  // We add 'LBRACE' to the recovery set to help with unterminated blocks.
   recoverWhile="!statement_start_or_brace"
-  // This helps make parsing more efficient by not creating PSI nodes for simple intermediate rules.
-  extraRoot("statement")="true"
 
   tokens = [
     IF = "if"
@@ -90,17 +88,16 @@ statement ::= (
     | SEMICOLON // Allow empty statements
 )
 
-id_token ::= ID
-
 block ::= (LBRACE statement* RBRACE) | statement
 
 // --- Statements ---
-variable_declaration ::= vartype id_token assignment? {
+variable_declaration ::= vartype ID assignment? {
     pin=2
-    name="variable"
-    extends="TerrascriptNamedElementImpl"
+    mixin="TerrascriptNamedElementImpl"
+    implements="TerrascriptNamedElement"
+    methods=[getName setName getNameIdentifier]
 }
-id_assignment ::= id_token EQ expression {pin=2}
+id_assignment ::= ID EQ expression {pin=2}
 assignment ::= EQ expression
 
 control_flow_statement ::= RETURN | FAIL | BREAK | CONTINUE
@@ -126,9 +123,9 @@ private multiplicative_expression ::= unary_expression ((MUL | DIV | MOD) unary_
 private unary_expression ::= (MINUS | L_NOT) unary_expression | element_call_expression
 private element_call_expression ::= call_expression | primary_expression
 
-call_expression ::= id_token LPAREN argument_list? RPAREN
+call_expression ::= ID LPAREN argument_list? RPAREN
 
-private primary_expression ::= literal | id_token | LPAREN expression RPAREN
+private primary_expression ::= literal | ID | LPAREN expression RPAREN
 
 argument_list ::= expression (COMMA expression)*
 literal ::= NUMBER | STRING | TRUE | FALSE

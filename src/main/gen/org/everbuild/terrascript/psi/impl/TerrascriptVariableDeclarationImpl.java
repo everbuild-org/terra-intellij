@@ -34,14 +34,29 @@ public class TerrascriptVariableDeclarationImpl extends TerrascriptNamedElementI
 
   @Override
   @NotNull
-  public TerrascriptIdToken getIdToken() {
-    return findNotNullChildByClass(TerrascriptIdToken.class);
+  public TerrascriptVartype getVartype() {
+    return findNotNullChildByClass(TerrascriptVartype.class);
   }
 
   @Override
   @NotNull
-  public TerrascriptVartype getVartype() {
-    return findNotNullChildByClass(TerrascriptVartype.class);
+  public PsiElement getId() {
+    return findNotNullChildByType(ID);
+  }
+
+  @Override
+  public String getName() {
+    return TerrascriptPsiUtil.getName(this);
+  }
+
+  @Override
+  public TerrascriptVariableDeclaration setName(String newName) {
+    return TerrascriptPsiUtil.setName(this, newName);
+  }
+
+  @Override
+  public PsiElement getNameIdentifier() {
+    return TerrascriptPsiUtil.getNameIdentifier(this);
   }
 
 }

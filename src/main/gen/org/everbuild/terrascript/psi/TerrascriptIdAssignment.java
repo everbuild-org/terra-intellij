@@ -11,6 +11,6 @@ public interface TerrascriptIdAssignment extends PsiElement {
   TerrascriptExpression getExpression();
 
   @NotNull
-  TerrascriptIdToken getIdToken();
+  PsiElement getId();
 
 }

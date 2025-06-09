@@ -47,10 +47,6 @@ public class TerrascriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitIdToken(@NotNull TerrascriptIdToken o) {
-    visitPsiElement(o);
-  }
-
   public void visitIfStatement(@NotNull TerrascriptIfStatement o) {
     visitPsiElement(o);
   }
@@ -64,7 +60,7 @@ public class TerrascriptVisitor extends PsiElementVisitor {
   }
 
   public void visitVariableDeclaration(@NotNull TerrascriptVariableDeclaration o) {
-    visitPsiElement(o);
+    visitNamedElement(o);
   }
 
   public void visitVartype(@NotNull TerrascriptVartype o) {
@@ -72,6 +68,10 @@ public class TerrascriptVisitor extends PsiElementVisitor {
   }
 
   public void visitWhileLoop(@NotNull TerrascriptWhileLoop o) {
+    visitPsiElement(o);
+  }
+
+  public void visitNamedElement(@NotNull TerrascriptNamedElement o) {
     visitPsiElement(o);
   }
 

@@ -15,24 +15,27 @@ import org.everbuild.terrascript.psi.TesfTypes
 class TerrascriptReferenceContributor : PsiReferenceContributor() {
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {
         registrar.registerReferenceProvider(
-            PlatformPatterns.psiElement(TesfTypes.ID),
+            PlatformPatterns.psiElement(), // Use a very broad pattern that matches ALL PSI elements
             object : PsiReferenceProvider() {
                 override fun getReferencesByElement(
                     element: PsiElement,
                     context: ProcessingContext
                 ): Array<PsiReference> {
-                    val parent = element.parent
+                    if (element.node.elementType == TesfTypes.ID) {
+                        val parent = element.parent
+                        if (parent is TerrascriptVariableDeclaration) {
+                            return PsiReference.EMPTY_ARRAY
+                        }
 
-                    if (parent is TerrascriptVariableDeclaration) {
-                        return PsiReference.EMPTY_ARRAY
+                        if (parent is TerrascriptCallExpression) {
+                            return PsiReference.EMPTY_ARRAY
+                        }
+
+                        val textRange = TextRange(0, element.textLength)
+                        return arrayOf(TerrascriptReference(element, textRange))
                     }
 
-                    if (parent is TerrascriptCallExpression) {
-                        return PsiReference.EMPTY_ARRAY
-                    }
-
-                    val textRange = TextRange(0, element.textLength)
-                    return arrayOf(TerrascriptReference(element, textRange))
+                    return PsiReference.EMPTY_ARRAY
                 }
             }
         )

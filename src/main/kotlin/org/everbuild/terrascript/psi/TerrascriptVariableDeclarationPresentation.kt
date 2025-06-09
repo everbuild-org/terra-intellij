@@ -7,7 +7,7 @@ import org.everbuild.terrascript.psi.impl.TerrascriptVariableDeclarationImpl
 
 class TerrascriptVariableDeclarationPresentation(private val element: TerrascriptVariableDeclarationImpl) : ItemPresentation {
     override fun getPresentableText(): String? {
-        return element.idToken.text
+        return element.id.text
     }
 
     override fun getLocationString(): String? = null

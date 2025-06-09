@@ -5,16 +5,16 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFileFactory
 import org.everbuild.terrascript.TerrascriptFileType
 
-class TerrascriptPsiFactory(private val project: Project) {
-    fun createIdentifier(name: String): PsiElement {
+object TerrascriptPsiFactory {
+    fun createIdentifier(project: Project, name: String): PsiElement {
         val text = "num $name;"
-        val file = createFile(text)
+        val file = createFile(project, text)
         return (file.firstChild as TerrascriptStatement)
             .variableDeclaration!!
-            .idToken
+            .id
     }
 
-    private fun createFile(text: String): TerrascriptFile {
+    private fun createFile(project: Project, text: String): TerrascriptFile {
         return PsiFileFactory.getInstance(project)
             .createFileFromText("dummy.tesf", TerrascriptFileType, text) as TerrascriptFile
     }

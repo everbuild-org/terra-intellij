@@ -11,6 +11,6 @@ public interface TerrascriptCallExpression extends PsiElement {
   TerrascriptArgumentList getArgumentList();
 
   @NotNull
-  TerrascriptIdToken getIdToken();
+  PsiElement getId();
 
 }

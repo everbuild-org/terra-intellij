@@ -20,7 +20,6 @@ public interface TesfTypes {
   IElementType EXPRESSION = new TerrascriptElementType("EXPRESSION");
   IElementType FOR_LOOP = new TerrascriptElementType("FOR_LOOP");
   IElementType ID_ASSIGNMENT = new TerrascriptElementType("ID_ASSIGNMENT");
-  IElementType ID_TOKEN = new TerrascriptElementType("ID_TOKEN");
   IElementType IF_STATEMENT = new TerrascriptElementType("IF_STATEMENT");
   IElementType LITERAL = new TerrascriptElementType("LITERAL");
   IElementType STATEMENT = new TerrascriptElementType("STATEMENT");
@@ -99,9 +98,6 @@ public interface TesfTypes {
       }
       else if (type == ID_ASSIGNMENT) {
         return new TerrascriptIdAssignmentImpl(node);
-      }
-      else if (type == ID_TOKEN) {
-        return new TerrascriptIdTokenImpl(node);
       }
       else if (type == IF_STATEMENT) {
         return new TerrascriptIfStatementImpl(node);

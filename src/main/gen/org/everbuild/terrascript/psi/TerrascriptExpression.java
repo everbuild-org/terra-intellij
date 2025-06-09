@@ -14,9 +14,6 @@ public interface TerrascriptExpression extends PsiElement {
   List<TerrascriptExpression> getExpressionList();
 
   @NotNull
-  List<TerrascriptIdToken> getIdTokenList();
-
-  @NotNull
   List<TerrascriptLiteral> getLiteralList();
 
 }
