@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TerraScript Functions",
+  "description": "Schema for TerraScript function definitions, used for autocompletion and validation.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "The name of the TerraScript function.",
+        "pattern": "^[a-zA-Z]+[a-zA-Z0-9]+$"
+      },
+      "description": {
+        "type": "string",
+        "description": "A detailed description of what the function does."
+      },
+      "arguments": {
+        "type": "array",
+        "description": "A list of arguments that the function accepts.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "description": "The name of the argument."
+            },
+            "type": {
+              "type": "string",
+              "description": "The data type of the argument.",
+              "enum": ["void", "str", "num", "bool"]
+            },
+            "description": {
+              "type": "string",
+              "description": "A description of the argument."
+            }
+          },
+          "required": ["name", "type", "description"],
+          "additionalProperties": false
+        }
+      },
+      "returns": {
+        "type": "string",
+        "description": "The return type of the function.",
+        "enum": ["void", "str", "num", "bool"]
+      },
+      "return_values": {
+        "type": "array",
+        "description": "For functions returning a STRING, a list of possible specific return values (e.g., 'AIR', 'LAND', 'OCEAN').",
+        "items": {
+          "type": "string"
+        },
+        "uniqueItems": true
+      }
+    },
+    "required": ["name", "description", "arguments", "returns"],
+    "additionalProperties": false
+  }
+}

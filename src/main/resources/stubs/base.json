@@ -1,0 +1,356 @@
+[
+  {
+    "name": "block",
+    "description": "Sets a block at a location.",
+    "arguments": [
+      {
+        "name": "x",
+        "type": "num",
+        "description": "X coordinate (relative to origin) to place block"
+      },
+      {
+        "name": "y",
+        "type": "num",
+        "description": "Y coordinate (relative to origin) to place block"
+      },
+      {
+        "name": "z",
+        "type": "num",
+        "description": "Z coordinate (relative to origin) to place block"
+      },
+      {
+        "name": "data",
+        "type": "str",
+        "description": "Block Data string to place (must be constant expression)"
+      },
+      {
+        "name": "replace",
+        "type": "bool",
+        "description": "(Optional; Default: true) Whether to replace an existing block. This is true. When true, any block will be overwritten (this is the default behavior when this parameter is unspecified) When false, only air will be overwritten."
+      },
+      {
+        "name": "physics",
+        "type": "bool",
+        "description": "(Optional; Default: false) Whether to tick update the block after the initial chunk generation. Allows blocks like water to flow or sand to fall when placed."
+      }
+    ],
+    "returns": "void"
+  },
+  {
+    "name": "check",
+    "description": "Checks the “type” of a location. It is a fast way to tell whether a location is in the air, ocean, or ground. While it cannot provide specific block state information, it is much faster than getBlock, and does not force-load chunks it is used in. It is recommended to avoid getBlock in regular structures, and use check whenever possible.",
+    "arguments": [
+      {
+        "name": "x",
+        "type": "num",
+        "description": "X coordinate (relative to origin) to check"
+      },
+      {
+        "name": "y",
+        "type": "num",
+        "description": "Y coordinate (relative to origin) to check"
+      },
+      {
+        "name": "z",
+        "type": "num",
+        "description": "Z coordinate (relative to origin) to check"
+      }
+    ],
+    "returns": "str",
+    "return_values": [
+      "AIR",
+      "LAND",
+      "OCEAN"
+    ]
+  },
+  {
+    "name": "structure",
+    "description": "Generates another structure within the current structure, with an offset origin and rotation.",
+    "arguments": [
+      {
+        "name": "x",
+        "type": "num",
+        "description": "X coordinate (relative to origin) to place structure"
+      },
+      {
+        "name": "y",
+        "type": "num",
+        "description": "Y coordinate (relative to origin) to place structure"
+      },
+      {
+        "name": "z",
+        "type": "num",
+        "description": "Z coordinate (relative to origin) to place structure"
+      },
+      {
+        "name": "structure",
+        "type": "str",
+        "description": "ID of structure to generate (equal to the id statement of that structure’s script)"
+      },
+      {
+        "name": "rotation",
+        "type": "str...",
+        "description": "Rotations to generate this structure with. One of these rotations will be randomly selected. Valid rotations are: NONE (No rotation), CW_90 (Clockwise 90 degrees), CCW_90 (Counterclockwise 90 degrees), and CW_180 (180 degrees)"
+      }
+    ],
+    "returns": "bool"
+  },
+  {
+    "name": "randomInt",
+    "description": "Returns a random value within a range.",
+    "arguments": [
+      {
+        "name": "range",
+        "type": "num",
+        "description": "Maximum value (exclusive)"
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "recursions",
+    "description": "Gets the number of recursions that have occurred prior to the generation of the structure. It is incredibly useful for preventing infinite recursion in recursive structures.",
+    "arguments": [],
+    "returns": "num"
+  },
+  {
+    "name": "setMark",
+    "description": "One of two functions for interacting with Marks, which allow data to be stored in structures and accessed later, without affecting generation. A Mark is a string assigned to a location in a structure. It is set by the setMark function, and then can be retrieved by the getMark function. One possible use case includes marking locations where structures generate, then checking them with getMark to ensure structures do not overlap. Marks set in recursive structures are visible by parent structures. if structure_a generates structure_b via the structure function, and structure_b sets a mark, structure_a can retrieve that mark. Marks are set relative to the added origins of all recursions. Setting a mark that already exists will overwrite it with a new value.",
+    "arguments": [
+      {
+        "name": "x",
+        "type": "num",
+        "description": "X coordinate (relative to origin) to set mark"
+      },
+      {
+        "name": "y",
+        "type": "num",
+        "description": "Y coordinate (relative to origin) to set mark"
+      },
+      {
+        "name": "z",
+        "type": "num",
+        "description": "Z coordinate (relative to origin) to set mark"
+      },
+      {
+        "name": "content",
+        "type": "str",
+        "description": "Content of the mark to place"
+      }
+    ],
+    "returns": "void"
+  },
+  {
+    "name": "getMark",
+    "description": "One of two functions for interacting with Marks, which allow data to be stored in structures and accessed later, without affecting generation. A Mark is a string assigned to a location in a structure. It is set by the setMark function, and then can be retrieved by the getMark function. One possible use case includes marking locations where structures generate, then checking them with getMark to ensure structures do not overlap. Marks set in recursive structures are visible by parent structures. if structure_a generates structure_b via the structure function, and structure_b sets a mark, structure_a can retrieve that mark. Marks are set relative to the added origins of all recursions.",
+    "arguments": [
+      {
+        "name": "x",
+        "type": "num",
+        "description": "X coordinate (relative to origin) to check mark"
+      },
+      {
+        "name": "y",
+        "type": "num",
+        "description": "Y coordinate (relative to origin) to check mark"
+      },
+      {
+        "name": "z",
+        "type": "num",
+        "description": "Z coordinate (relative to origin) to check mark"
+      }
+    ],
+    "returns": "str"
+  },
+  {
+    "name": "pull",
+    "description": "Sets a block at a location, then “pulls” it down to ground. The pull function will search at the specified location, then downwards, until the block is NOT air.",
+    "arguments": [
+      {
+        "name": "x",
+        "type": "num",
+        "description": "X coordinate (relative to origin) to place block"
+      },
+      {
+        "name": "y",
+        "type": "num",
+        "description": "Y coordinate (relative to origin) to start search"
+      },
+      {
+        "name": "z",
+        "type": "num",
+        "description": "Z coordinate (relative to origin) to place block"
+      },
+      {
+        "name": "data",
+        "type": "str",
+        "description": "Block Data string to place (must be constant expression)"
+      }
+    ],
+    "returns": "void"
+  },
+  {
+    "name": "loot",
+    "description": "Populates a container with loot. A container is any block with an inventory (chests, shulker boxes, furnaces, brewing stands, etc.)",
+    "arguments": [
+      {
+        "name": "x",
+        "type": "num",
+        "description": "X coordinate (relative to origin) to fill loot"
+      },
+      {
+        "name": "y",
+        "type": "num",
+        "description": "Y coordinate (relative to origin) to fill loot"
+      },
+      {
+        "name": "z",
+        "type": "num",
+        "description": "Z coordinate (relative to origin) to fill loot"
+      },
+      {
+        "name": "table",
+        "type": "str",
+        "description": "Filename of the loot table, relative to pack/structures/loot. Example: village/village_house.json"
+      }
+    ],
+    "returns": "void"
+  },
+  {
+    "name": "entity",
+    "description": "Spawns an entity at a location.",
+    "arguments": [
+      {
+        "name": "x",
+        "type": "num",
+        "description": "X coordinate (relative to origin) to spawn entity"
+      },
+      {
+        "name": "y",
+        "type": "num",
+        "description": "Y coordinate (relative to origin) to spawn entity"
+      },
+      {
+        "name": "z",
+        "type": "num",
+        "description": "Z coordinate (relative to origin) to spawn entity"
+      },
+      {
+        "name": "entity",
+        "type": "str",
+        "description": "Entity ID to spawn"
+      }
+    ],
+    "returns": "void"
+  },
+  {
+    "name": "getBiome",
+    "description": "Gets the Terra biome at a location.",
+    "arguments": [
+      {
+        "name": "x",
+        "type": "num",
+        "description": "X coordinate (relative to origin) to check biome"
+      },
+      {
+        "name": "y",
+        "type": "num",
+        "description": "Y coordinate (relative to origin) to check biome"
+      },
+      {
+        "name": "z",
+        "type": "num",
+        "description": "Z coordinate (relative to origin) to check biome"
+      }
+    ],
+    "returns": "str"
+  },
+  {
+    "name": "getBlock",
+    "description": "Checks the Block State at a location. It should NOT be used in regular structures! The getBlock function force-loads chunks when it runs. This is fine in trees, which load chunks anyways, but in regular structures it will cause cascading chunk loading whenever a structure generates. Use the check function instead in regular structures!",
+    "arguments": [
+      {
+        "name": "x",
+        "type": "num",
+        "description": "X coordinate (relative to origin) to check block"
+      },
+      {
+        "name": "y",
+        "type": "num",
+        "description": "Y coordinate (relative to origin) to check block"
+      },
+      {
+        "name": "z",
+        "type": "num",
+        "description": "Z coordinate (relative to origin) to check block"
+      }
+    ],
+    "returns": "str"
+  },
+  {
+    "name": "state",
+    "description": "Manipulates NBT data on block entities (like signs and mob spawners). Data is formatted as \"key1=value1,key2=value2\". E.G. \"text1=hello,text2=world\" applied to a sign would cause the sign to read: hello world",
+    "arguments": [
+      {
+        "name": "x",
+        "type": "num",
+        "description": "X coordinate (relative to origin) of block"
+      },
+      {
+        "name": "y",
+        "type": "num",
+        "description": "Y coordinate (relative to origin) of block"
+      },
+      {
+        "name": "z",
+        "type": "num",
+        "description": "Z coordinate (relative to origin) of block"
+      },
+      {
+        "name": "data",
+        "type": "str",
+        "description": "Data to apply to block"
+      }
+    ],
+    "returns": "void"
+  },
+  {
+    "name": "print",
+    "description": "Prints a string to the console. It is a debug function, and as such will only work with debug mode enabled.",
+    "arguments": [
+      {
+        "name": "message",
+        "type": "str",
+        "description": "Message to print to console"
+      }
+    ],
+    "returns": "void"
+  },
+  {
+    "name": "sampler",
+    "description": "Allows for a cached noise sampler of a config pack to be used within TerraScript and output noise values.",
+    "arguments": [
+      {
+        "name": "sampler",
+        "type": "str",
+        "description": "ID of noise sampler"
+      },
+      {
+        "name": "x",
+        "type": "num",
+        "description": "X coordinate (relative to origin) for noise input"
+      },
+      {
+        "name": "z",
+        "type": "num",
+        "description": "Z coordinate (relative to origin) for noise input"
+      },
+      {
+        "name": "y",
+        "type": "num",
+        "description": "(Optional) Y coordinate (relative to origin) for noise input"
+      }
+    ],
+    "returns": "num"
+  }
+]

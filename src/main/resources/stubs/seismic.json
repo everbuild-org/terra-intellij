@@ -1,0 +1,465 @@
+[
+  {
+    "name": "pow",
+    "description": "Calculates the result of raising the first argument to the power of the second argument.",
+    "arguments": [
+      {
+        "name": "base",
+        "type": "num",
+        "description": "The base number."
+      },
+      {
+        "name": "exponent",
+        "type": "num",
+        "description": "The exponent."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "intPow",
+    "description": "Calculates the result of raising a number to an integer power using fast exponentiation.",
+    "arguments": [
+      {
+        "name": "base",
+        "type": "num",
+        "description": "The base number."
+      },
+      {
+        "name": "exponent",
+        "type": "num",
+        "description": "The integer exponent."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "pow2",
+    "description": "Calculates the square of a number.",
+    "arguments": [
+      {
+        "name": "value",
+        "type": "num",
+        "description": "The number to square."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "sqrt",
+    "description": "Calculates the square root of a number.",
+    "arguments": [
+      {
+        "name": "value",
+        "type": "num",
+        "description": "The number."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "cbrt",
+    "description": "Calculates the cube root of a number.",
+    "arguments": [
+      {
+        "name": "value",
+        "type": "num",
+        "description": "The number."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "exp",
+    "description": "Calculates Euler's number 'e' raised to the power of a value.",
+    "arguments": [
+      {
+        "name": "value",
+        "type": "num",
+        "description": "The exponent."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "ln",
+    "description": "Calculates the natural logarithm (base e) of a number.",
+    "arguments": [
+      {
+        "name": "value",
+        "type": "num",
+        "description": "The number."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "log",
+    "description": "Calculates the base 10 logarithm of a number.",
+    "arguments": [
+      {
+        "name": "value",
+        "type": "num",
+        "description": "The number."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "absInt",
+    "description": "Calculates the absolute value of an integer.",
+    "arguments": [
+      {
+        "name": "value",
+        "type": "num",
+        "description": "The integer."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "absNum",
+    "description": "Calculates the absolute value of a decimal number.",
+    "arguments": [
+      {
+        "name": "value",
+        "type": "num",
+        "description": "The decimal number."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "sin",
+    "description": "Calculates the sine of an angle in radians.",
+    "arguments": [
+      {
+        "name": "angle",
+        "type": "num",
+        "description": "The angle in radians."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "cos",
+    "description": "Calculates the cosine of an angle in radians.",
+    "arguments": [
+      {
+        "name": "angle",
+        "type": "num",
+        "description": "The angle in radians."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "tan",
+    "description": "Calculates the tangent of an angle in radians.",
+    "arguments": [
+      {
+        "name": "angle",
+        "type": "num",
+        "description": "The angle in radians."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "sinh",
+    "description": "Calculates the hyperbolic sine of a value.",
+    "arguments": [
+      {
+        "name": "value",
+        "type": "num",
+        "description": "The value."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "cosh",
+    "description": "Calculates the hyperbolic cosine of a value.",
+    "arguments": [
+      {
+        "name": "value",
+        "type": "num",
+        "description": "The value."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "tanh",
+    "description": "Calculates the hyperbolic tangent of a value.",
+    "arguments": [
+      {
+        "name": "value",
+        "type": "num",
+        "description": "The value."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "asin",
+    "description": "Calculates the arc sine of a value, returning an angle in radians.",
+    "arguments": [
+      {
+        "name": "value",
+        "type": "num",
+        "description": "The value."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "acos",
+    "description": "Calculates the arc cosine of a value, returning an angle in radians.",
+    "arguments": [
+      {
+        "name": "value",
+        "type": "num",
+        "description": "The value."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "atan",
+    "description": "Calculates the arc tangent of a value, returning an angle in radians.",
+    "arguments": [
+      {
+        "name": "value",
+        "type": "num",
+        "description": "The value."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "atan2",
+    "description": "Calculates the angle from the positive X-axis to a point (y, x), returning an angle in radians.",
+    "arguments": [
+      {
+        "name": "y",
+        "type": "num",
+        "description": "The Y-coordinate."
+      },
+      {
+        "name": "x",
+        "type": "num",
+        "description": "The X-coordinate."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "rad",
+    "description": "Converts an angle from degrees to radians.",
+    "arguments": [
+      {
+        "name": "angle",
+        "type": "num",
+        "description": "The angle in degrees."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "deg",
+    "description": "Converts an angle from radians to degrees.",
+    "arguments": [
+      {
+        "name": "angle",
+        "type": "num",
+        "description": "The angle in radians."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "floor",
+    "description": "Returns the largest (closest to positive infinity) double value that is less than or equal to the argument and is equal to a mathematical integer.",
+    "arguments": [
+      {
+        "name": "value",
+        "type": "num",
+        "description": "The number."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "ceil",
+    "description": "Returns the smallest (closest to negative infinity) double value that is greater than or equal to the argument and is equal to a mathematical integer.",
+    "arguments": [
+      {
+        "name": "value",
+        "type": "num",
+        "description": "The number."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "max",
+    "description": "Returns the greater of two double values.",
+    "arguments": [
+      {
+        "name": "value1",
+        "type": "num",
+        "description": "The first number."
+      },
+      {
+        "name": "value2",
+        "type": "num",
+        "description": "The second number."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "intMax",
+    "description": "Returns the greater of two integer values.",
+    "arguments": [
+      {
+        "name": "value1",
+        "type": "num",
+        "description": "The first integer."
+      },
+      {
+        "name": "value2",
+        "type": "num",
+        "description": "The second integer."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "min",
+    "description": "Returns the smaller of two double values.",
+    "arguments": [
+      {
+        "name": "value1",
+        "type": "num",
+        "description": "The first number."
+      },
+      {
+        "name": "value2",
+        "type": "num",
+        "description": "The second number."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "intMin",
+    "description": "Returns the smaller of two integer values.",
+    "arguments": [
+      {
+        "name": "value1",
+        "type": "num",
+        "description": "The first integer."
+      },
+      {
+        "name": "value2",
+        "type": "num",
+        "description": "The second integer."
+      }
+    ],
+    "returns": "num"
+  },
+  {
+    "name": "substring",
+    "description": "Returns a new string that is a substring of this string.",
+    "arguments": [
+      {
+        "name": "source",
+        "type": "str",
+        "description": "The source string."
+      },
+      {
+        "name": "beginIndex",
+        "type": "num",
+        "description": "The beginning index, inclusive."
+      },
+      {
+        "name": "endIndex",
+        "type": "num",
+        "description": "The ending index, exclusive."
+      }
+    ],
+    "returns": "str"
+  },
+  {
+    "name": "upperCase",
+    "description": "Converts all of the characters in this String to upper case.",
+    "arguments": [
+      {
+        "name": "source",
+        "type": "str",
+        "description": "The source string."
+      }
+    ],
+    "returns": "str"
+  },
+  {
+    "name": "lowerCase",
+    "description": "Converts all of the characters in this String to lower case.",
+    "arguments": [
+      {
+        "name": "source",
+        "type": "str",
+        "description": "The source string."
+      }
+    ],
+    "returns": "str"
+  },
+  {
+    "name": "startsWith",
+    "description": "Tests if this string starts with the specified prefix.",
+    "arguments": [
+      {
+        "name": "source",
+        "type": "str",
+        "description": "The string to test."
+      },
+      {
+        "name": "prefix",
+        "type": "str",
+        "description": "The prefix."
+      }
+    ],
+    "returns": "bool"
+  },
+  {
+    "name": "endsWith",
+    "description": "Tests if this string ends with the specified suffix.",
+    "arguments": [
+      {
+        "name": "source",
+        "type": "str",
+        "description": "The string to test."
+      },
+      {
+        "name": "suffix",
+        "type": "str",
+        "description": "The suffix."
+      }
+    ],
+    "returns": "bool"
+  },
+  {
+    "name": "println",
+    "description": "Prints a string to the console followed by a new line.",
+    "arguments": [
+      {
+        "name": "value",
+        "type": "str",
+        "description": "The string to print."
+      }
+    ],
+    "returns": "void"
+  }
+]
