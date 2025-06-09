@@ -13,12 +13,14 @@ public interface TesfTypes {
   IElementType ARGUMENT_LIST = new TerrascriptElementType("ARGUMENT_LIST");
   IElementType ASSIGNMENT = new TerrascriptElementType("ASSIGNMENT");
   IElementType BLOCK = new TerrascriptElementType("BLOCK");
+  IElementType CALL_EXPRESSION = new TerrascriptElementType("CALL_EXPRESSION");
   IElementType CONDITIONAL = new TerrascriptElementType("CONDITIONAL");
   IElementType CONTROL_FLOW_STATEMENT = new TerrascriptElementType("CONTROL_FLOW_STATEMENT");
   IElementType ELSE_BLOCK = new TerrascriptElementType("ELSE_BLOCK");
   IElementType EXPRESSION = new TerrascriptElementType("EXPRESSION");
   IElementType FOR_LOOP = new TerrascriptElementType("FOR_LOOP");
   IElementType ID_ASSIGNMENT = new TerrascriptElementType("ID_ASSIGNMENT");
+  IElementType ID_TOKEN = new TerrascriptElementType("ID_TOKEN");
   IElementType IF_STATEMENT = new TerrascriptElementType("IF_STATEMENT");
   IElementType LITERAL = new TerrascriptElementType("LITERAL");
   IElementType STATEMENT = new TerrascriptElementType("STATEMENT");
@@ -77,6 +79,9 @@ public interface TesfTypes {
       else if (type == BLOCK) {
         return new TerrascriptBlockImpl(node);
       }
+      else if (type == CALL_EXPRESSION) {
+        return new TerrascriptCallExpressionImpl(node);
+      }
       else if (type == CONDITIONAL) {
         return new TerrascriptConditionalImpl(node);
       }
@@ -94,6 +99,9 @@ public interface TesfTypes {
       }
       else if (type == ID_ASSIGNMENT) {
         return new TerrascriptIdAssignmentImpl(node);
+      }
+      else if (type == ID_TOKEN) {
+        return new TerrascriptIdTokenImpl(node);
       }
       else if (type == IF_STATEMENT) {
         return new TerrascriptIfStatementImpl(node);

@@ -11,9 +11,9 @@ public interface TerrascriptVariableDeclaration extends PsiElement {
   TerrascriptAssignment getAssignment();
 
   @NotNull
-  TerrascriptVartype getVartype();
+  TerrascriptIdToken getIdToken();
 
   @NotNull
-  PsiElement getId();
+  TerrascriptVartype getVartype();
 
 }

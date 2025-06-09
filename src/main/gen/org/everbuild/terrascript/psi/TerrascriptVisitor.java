@@ -19,6 +19,10 @@ public class TerrascriptVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitCallExpression(@NotNull TerrascriptCallExpression o) {
+    visitPsiElement(o);
+  }
+
   public void visitConditional(@NotNull TerrascriptConditional o) {
     visitPsiElement(o);
   }
@@ -40,6 +44,10 @@ public class TerrascriptVisitor extends PsiElementVisitor {
   }
 
   public void visitIdAssignment(@NotNull TerrascriptIdAssignment o) {
+    visitPsiElement(o);
+  }
+
+  public void visitIdToken(@NotNull TerrascriptIdToken o) {
     visitPsiElement(o);
   }
 

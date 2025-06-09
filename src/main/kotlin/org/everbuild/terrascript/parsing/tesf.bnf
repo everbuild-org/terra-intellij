@@ -78,8 +78,6 @@ terrascriptFile ::= statement*
 private meta statement_start_or_brace ::= statement_start | LBRACE
 private meta statement_start ::= (STR | NUM | BOOL | ID | IF | FOR | WHILE | RETURN | FAIL | BREAK | CONTINUE | COMMENT | LPAREN)
 
-// The main statement rule. Notice it's marked as 'private'.
-// This makes the generated PSI tree cleaner.
 statement ::= (
     variable_declaration SEMICOLON
     | id_assignment SEMICOLON
@@ -92,13 +90,17 @@ statement ::= (
     | SEMICOLON // Allow empty statements
 )
 
+id_token ::= ID
+
 block ::= (LBRACE statement* RBRACE) | statement
 
 // --- Statements ---
-// We add 'pin=ID' and 'pin=EQ'. This tells the parser: once you see the identifier
-// (or equals sign), commit to this rule. This dramatically improves error recovery.
-variable_declaration ::= vartype ID assignment? {pin=2}
-id_assignment ::= ID EQ expression {pin=2}
+variable_declaration ::= vartype id_token assignment? {
+    pin=2
+    name="variable"
+    extends="TerrascriptNamedElementImpl"
+}
+id_assignment ::= id_token EQ expression {pin=2}
 assignment ::= EQ expression
 
 control_flow_statement ::= RETURN | FAIL | BREAK | CONTINUE
@@ -121,11 +123,12 @@ private equality_expression ::= relational_expression ((EQEQ | NEQ) relational_e
 private relational_expression ::= additive_expression ((LT | GT | LE | GE) additive_expression)*
 private additive_expression ::= multiplicative_expression ((PLUS | MINUS) multiplicative_expression)*
 private multiplicative_expression ::= unary_expression ((MUL | DIV | MOD) unary_expression)*
-private unary_expression ::= (MINUS | L_NOT) unary_expression | call_expression
+private unary_expression ::= (MINUS | L_NOT) unary_expression | element_call_expression
+private element_call_expression ::= call_expression | primary_expression
 
-private call_expression ::= primary_expression (LPAREN argument_list? RPAREN)* // Function call suffix
+call_expression ::= id_token LPAREN argument_list? RPAREN
 
-private primary_expression ::= literal | ID | LPAREN expression RPAREN
+private primary_expression ::= literal | id_token | LPAREN expression RPAREN
 
 argument_list ::= expression (COMMA expression)*
 literal ::= NUMBER | STRING | TRUE | FALSE

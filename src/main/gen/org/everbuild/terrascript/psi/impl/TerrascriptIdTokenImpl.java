@@ -8,16 +8,17 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static org.everbuild.terrascript.psi.TesfTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.everbuild.terrascript.psi.*;
 
-public class TerrascriptVariableDeclarationImpl extends TerrascriptNamedElementImpl implements TerrascriptVariableDeclaration {
+public class TerrascriptIdTokenImpl extends ASTWrapperPsiElement implements TerrascriptIdToken {
 
-  public TerrascriptVariableDeclarationImpl(ASTNode node) {
+  public TerrascriptIdTokenImpl(@NotNull ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull TerrascriptVisitor visitor) {
-    visitor.visitVariableDeclaration(this);
+    visitor.visitIdToken(this);
   }
 
   @Override
@@ -27,21 +28,9 @@ public class TerrascriptVariableDeclarationImpl extends TerrascriptNamedElementI
   }
 
   @Override
-  @Nullable
-  public TerrascriptAssignment getAssignment() {
-    return findChildByClass(TerrascriptAssignment.class);
-  }
-
-  @Override
   @NotNull
-  public TerrascriptIdToken getIdToken() {
-    return findNotNullChildByClass(TerrascriptIdToken.class);
-  }
-
-  @Override
-  @NotNull
-  public TerrascriptVartype getVartype() {
-    return findNotNullChildByClass(TerrascriptVartype.class);
+  public PsiElement getId() {
+    return findNotNullChildByType(ID);
   }
 
 }

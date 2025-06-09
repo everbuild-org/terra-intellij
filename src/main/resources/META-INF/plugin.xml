@@ -47,6 +47,12 @@
 
         <completion.contributor language="terrascript"
                                 implementationClass="org.everbuild.terrascript.completion.TerrascriptCompletionContributor"/>
+
+        <psi.referenceContributor language="terrascript"
+                                  implementation="org.everbuild.terrascript.reference.TerrascriptReferenceContributor"/>
+
+        <lang.psiStructureViewFactory language="terrascript"
+                                      implementationClass="org.everbuild.terrascript.structure.TerrascriptStructureViewFactory"/>
     </extensions>
     <actions>
         <action id="NEW_TERRASCRIPT_FILE"

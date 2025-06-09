@@ -35,8 +35,8 @@ public class TerrascriptIdAssignmentImpl extends ASTWrapperPsiElement implements
 
   @Override
   @NotNull
-  public PsiElement getId() {
-    return findNotNullChildByType(ID);
+  public TerrascriptIdToken getIdToken() {
+    return findNotNullChildByClass(TerrascriptIdToken.class);
   }
 
 }

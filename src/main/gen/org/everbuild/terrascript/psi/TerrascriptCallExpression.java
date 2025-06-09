@@ -5,10 +5,10 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TerrascriptIdAssignment extends PsiElement {
+public interface TerrascriptCallExpression extends PsiElement {
 
   @Nullable
-  TerrascriptExpression getExpression();
+  TerrascriptArgumentList getArgumentList();
 
   @NotNull
   TerrascriptIdToken getIdToken();

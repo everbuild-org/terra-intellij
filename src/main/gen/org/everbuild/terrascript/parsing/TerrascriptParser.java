@@ -160,43 +160,22 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // primary_expression (LPAREN argument_list? RPAREN)*
-  static boolean call_expression(PsiBuilder b, int l) {
+  // id_token LPAREN argument_list? RPAREN
+  public static boolean call_expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "call_expression")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_);
-    r = primary_expression(b, l + 1);
-    r = r && call_expression_1(b, l + 1);
+    Marker m = enter_section_(b, l, _NONE_, CALL_EXPRESSION, "<call expression>");
+    r = id_token(b, l + 1);
+    r = r && consumeToken(b, LPAREN);
+    r = r && call_expression_2(b, l + 1);
+    r = r && consumeToken(b, RPAREN);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // (LPAREN argument_list? RPAREN)*
-  private static boolean call_expression_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "call_expression_1")) return false;
-    while (true) {
-      int c = current_position_(b);
-      if (!call_expression_1_0(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "call_expression_1", c)) break;
-    }
-    return true;
-  }
-
-  // LPAREN argument_list? RPAREN
-  private static boolean call_expression_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "call_expression_1_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, LPAREN);
-    r = r && call_expression_1_0_1(b, l + 1);
-    r = r && consumeToken(b, RPAREN);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
   // argument_list?
-  private static boolean call_expression_1_0_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "call_expression_1_0_1")) return false;
+  private static boolean call_expression_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "call_expression_2")) return false;
     argument_list(b, l + 1);
     return true;
   }
@@ -253,6 +232,18 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
     if (!r) r = consumeToken(b, FAIL);
     if (!r) r = consumeToken(b, BREAK);
     if (!r) r = consumeToken(b, CONTINUE);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // call_expression | primary_expression
+  static boolean element_call_expression(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "element_call_expression")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_);
+    r = call_expression(b, l + 1);
+    if (!r) r = primary_expression(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -387,16 +378,28 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ID EQ expression
+  // id_token EQ expression
   public static boolean id_assignment(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "id_assignment")) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, ID_ASSIGNMENT, "<id assignment>");
-    r = consumeTokens(b, 2, ID, EQ);
+    r = id_token(b, l + 1);
+    r = r && consumeToken(b, EQ);
     p = r; // pin = 2
     r = r && expression(b, l + 1);
     exit_section_(b, l, m, r, p, null);
     return r || p;
+  }
+
+  /* ********************************************************** */
+  // ID
+  public static boolean id_token(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "id_token")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, ID_TOKEN, "<id token>");
+    r = consumeToken(b, ID);
+    exit_section_(b, l, m, r, false, null);
+    return r;
   }
 
   /* ********************************************************** */
@@ -540,13 +543,13 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // literal | ID | LPAREN expression RPAREN
+  // literal | id_token | LPAREN expression RPAREN
   static boolean primary_expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "primary_expression")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_);
     r = literal(b, l + 1);
-    if (!r) r = consumeToken(b, ID);
+    if (!r) r = id_token(b, l + 1);
     if (!r) r = primary_expression_2(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
@@ -730,13 +733,13 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (MINUS | L_NOT) unary_expression | call_expression
+  // (MINUS | L_NOT) unary_expression | element_call_expression
   static boolean unary_expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "unary_expression")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_);
     r = unary_expression_0(b, l + 1);
-    if (!r) r = call_expression(b, l + 1);
+    if (!r) r = element_call_expression(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -762,13 +765,13 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // vartype ID assignment?
+  // vartype id_token assignment?
   public static boolean variable_declaration(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "variable_declaration")) return false;
     boolean r, p;
-    Marker m = enter_section_(b, l, _NONE_, VARIABLE_DECLARATION, "<variable declaration>");
+    Marker m = enter_section_(b, l, _NONE_, VARIABLE_DECLARATION, "<variable>");
     r = vartype(b, l + 1);
-    r = r && consumeToken(b, ID);
+    r = r && id_token(b, l + 1);
     p = r; // pin = 2
     r = r && variable_declaration_2(b, l + 1);
     exit_section_(b, l, m, r, p, null);

@@ -8,10 +8,13 @@ import com.intellij.psi.PsiElement;
 public interface TerrascriptExpression extends PsiElement {
 
   @NotNull
-  List<TerrascriptArgumentList> getArgumentListList();
+  List<TerrascriptCallExpression> getCallExpressionList();
 
   @NotNull
   List<TerrascriptExpression> getExpressionList();
+
+  @NotNull
+  List<TerrascriptIdToken> getIdTokenList();
 
   @NotNull
   List<TerrascriptLiteral> getLiteralList();
