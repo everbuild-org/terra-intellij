@@ -17,7 +17,7 @@ import org.everbuild.terrascript.psi.TesfTypes
 class TerrascriptReferenceContributor : PsiReferenceContributor() {
     override fun registerReferenceProviders(registrar: PsiReferenceRegistrar) {
         registrar.registerReferenceProvider(
-            PlatformPatterns.psiElement(), // Use a very broad pattern that matches ALL PSI elements
+            PlatformPatterns.psiElement(TesfTypes.ID),
             object : PsiReferenceProvider() {
                 override fun getReferencesByElement(
                     element: PsiElement,
