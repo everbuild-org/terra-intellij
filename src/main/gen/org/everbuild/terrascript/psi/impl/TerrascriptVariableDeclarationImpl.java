@@ -8,11 +8,12 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static org.everbuild.terrascript.psi.TesfTypes.*;
+import org.everbuild.terrascript.psi.TerrascriptNamedElementImpl;
 import org.everbuild.terrascript.psi.*;
 
 public class TerrascriptVariableDeclarationImpl extends TerrascriptNamedElementImpl implements TerrascriptVariableDeclaration {
 
-  public TerrascriptVariableDeclarationImpl(ASTNode node) {
+  public TerrascriptVariableDeclarationImpl(@NotNull ASTNode node) {
     super(node);
   }
 
@@ -45,17 +46,17 @@ public class TerrascriptVariableDeclarationImpl extends TerrascriptNamedElementI
   }
 
   @Override
-  public String getName() {
+  public @Nullable String getName() {
     return TerrascriptPsiUtil.getName(this);
   }
 
   @Override
-  public TerrascriptVariableDeclaration setName(String newName) {
+  public @NotNull TerrascriptVariableDeclaration setName(@NotNull String newName) {
     return TerrascriptPsiUtil.setName(this, newName);
   }
 
   @Override
-  public PsiElement getNameIdentifier() {
+  public @NotNull PsiElement getNameIdentifier() {
     return TerrascriptPsiUtil.getNameIdentifier(this);
   }
 

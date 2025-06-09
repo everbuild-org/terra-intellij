@@ -8,10 +8,10 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static org.everbuild.terrascript.psi.TesfTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import org.everbuild.terrascript.psi.TerrascriptPsiElementImpl;
 import org.everbuild.terrascript.psi.*;
 
-public class TerrascriptConditionalImpl extends ASTWrapperPsiElement implements TerrascriptConditional {
+public class TerrascriptConditionalImpl extends TerrascriptPsiElementImpl implements TerrascriptConditional {
 
   public TerrascriptConditionalImpl(@NotNull ASTNode node) {
     super(node);

@@ -14,7 +14,7 @@ public interface TerrascriptStatement extends PsiElement {
   TerrascriptControlFlowStatement getControlFlowStatement();
 
   @Nullable
-  TerrascriptExpression getExpression();
+  TerrascriptExpressionStatement getExpressionStatement();
 
   @Nullable
   TerrascriptForLoop getForLoop();

@@ -8,10 +8,10 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static org.everbuild.terrascript.psi.TesfTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import org.everbuild.terrascript.psi.TerrascriptPsiElementImpl;
 import org.everbuild.terrascript.psi.*;
 
-public class TerrascriptElseBlockImpl extends ASTWrapperPsiElement implements TerrascriptElseBlock {
+public class TerrascriptElseBlockImpl extends TerrascriptPsiElementImpl implements TerrascriptElseBlock {
 
   public TerrascriptElseBlockImpl(@NotNull ASTNode node) {
     super(node);

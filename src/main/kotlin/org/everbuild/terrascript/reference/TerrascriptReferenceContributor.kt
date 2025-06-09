@@ -8,7 +8,9 @@ import com.intellij.psi.PsiReferenceContributor
 import com.intellij.psi.PsiReferenceProvider
 import com.intellij.psi.PsiReferenceRegistrar
 import com.intellij.util.ProcessingContext
+import org.everbuild.terrascript.TerrascriptLanguage
 import org.everbuild.terrascript.psi.TerrascriptCallExpression
+import org.everbuild.terrascript.psi.TerrascriptExpression
 import org.everbuild.terrascript.psi.TerrascriptVariableDeclaration
 import org.everbuild.terrascript.psi.TesfTypes
 
@@ -21,6 +23,7 @@ class TerrascriptReferenceContributor : PsiReferenceContributor() {
                     element: PsiElement,
                     context: ProcessingContext
                 ): Array<PsiReference> {
+                    println("$element, $context, ${element.text}")
                     if (element.node.elementType == TesfTypes.ID) {
                         val parent = element.parent
                         if (parent is TerrascriptVariableDeclaration) {
@@ -37,7 +40,8 @@ class TerrascriptReferenceContributor : PsiReferenceContributor() {
 
                     return PsiReference.EMPTY_ARRAY
                 }
-            }
+            },
+            PsiReferenceRegistrar.HIGHER_PRIORITY
         )
     }
 }

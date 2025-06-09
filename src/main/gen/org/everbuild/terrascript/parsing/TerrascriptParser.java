@@ -180,6 +180,18 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // call_expression | primary_expression
+  static boolean call_or_primary_expression(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "call_or_primary_expression")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_);
+    r = call_expression(b, l + 1);
+    if (!r) r = primary_expression(b, l + 1);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
   // if_statement (ELSE if_statement)* else_block?
   public static boolean conditional(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "conditional")) return false;
@@ -222,28 +234,25 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // RETURN | FAIL | BREAK | CONTINUE
+  // (RETURN | FAIL | BREAK | CONTINUE) SEMICOLON
   public static boolean control_flow_statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "control_flow_statement")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, CONTROL_FLOW_STATEMENT, "<control flow statement>");
-    r = consumeToken(b, RETURN);
-    if (!r) r = consumeToken(b, FAIL);
-    if (!r) r = consumeToken(b, BREAK);
-    if (!r) r = consumeToken(b, CONTINUE);
+    r = control_flow_statement_0(b, l + 1);
+    r = r && consumeToken(b, SEMICOLON);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  /* ********************************************************** */
-  // call_expression | primary_expression
-  static boolean element_call_expression(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "element_call_expression")) return false;
+  // RETURN | FAIL | BREAK | CONTINUE
+  private static boolean control_flow_statement_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "control_flow_statement_0")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_);
-    r = call_expression(b, l + 1);
-    if (!r) r = primary_expression(b, l + 1);
-    exit_section_(b, l, m, r, false, null);
+    r = consumeToken(b, RETURN);
+    if (!r) r = consumeToken(b, FAIL);
+    if (!r) r = consumeToken(b, BREAK);
+    if (!r) r = consumeToken(b, CONTINUE);
     return r;
   }
 
@@ -314,6 +323,18 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // expression SEMICOLON
+  public static boolean expression_statement(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "expression_statement")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, EXPRESSION_STATEMENT, "<expression statement>");
+    r = expression(b, l + 1);
+    r = r && consumeToken(b, SEMICOLON);
+    exit_section_(b, l, m, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
   // variable_declaration | expression
   static boolean for_initializer(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "for_initializer")) return false;
@@ -377,14 +398,15 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ID EQ expression
+  // ID EQ expression SEMICOLON
   public static boolean id_assignment(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "id_assignment")) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, ID_ASSIGNMENT, "<id assignment>");
     r = consumeTokens(b, 2, ID, EQ);
     p = r; // pin = 2
-    r = r && expression(b, l + 1);
+    r = r && report_error_(b, expression(b, l + 1));
+    r = p && consumeToken(b, SEMICOLON) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
   }
@@ -600,108 +622,50 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // variable_declaration SEMICOLON
-  //     | id_assignment SEMICOLON
-  //     | expression SEMICOLON
+  // variable_declaration
+  //     | id_assignment
+  //     | expression_statement
   //     | conditional
   //     | while_loop
   //     | for_loop
-  //     | control_flow_statement SEMICOLON
+  //     | control_flow_statement
   //     | COMMENT
   //     | SEMICOLON
   public static boolean statement(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "statement")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, STATEMENT, "<statement>");
-    r = statement_0(b, l + 1);
-    if (!r) r = statement_1(b, l + 1);
-    if (!r) r = statement_2(b, l + 1);
+    r = variable_declaration(b, l + 1);
+    if (!r) r = id_assignment(b, l + 1);
+    if (!r) r = expression_statement(b, l + 1);
     if (!r) r = conditional(b, l + 1);
     if (!r) r = while_loop(b, l + 1);
     if (!r) r = for_loop(b, l + 1);
-    if (!r) r = statement_6(b, l + 1);
+    if (!r) r = control_flow_statement(b, l + 1);
     if (!r) r = consumeToken(b, COMMENT);
     if (!r) r = consumeToken(b, SEMICOLON);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  // variable_declaration SEMICOLON
-  private static boolean statement_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "statement_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = variable_declaration(b, l + 1);
-    r = r && consumeToken(b, SEMICOLON);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // id_assignment SEMICOLON
-  private static boolean statement_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "statement_1")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = id_assignment(b, l + 1);
-    r = r && consumeToken(b, SEMICOLON);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // expression SEMICOLON
-  private static boolean statement_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "statement_2")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = expression(b, l + 1);
-    r = r && consumeToken(b, SEMICOLON);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // control_flow_statement SEMICOLON
-  private static boolean statement_6(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "statement_6")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = control_flow_statement(b, l + 1);
-    r = r && consumeToken(b, SEMICOLON);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
   /* ********************************************************** */
-  // STR | NUM | BOOL | ID | IF | FOR | WHILE | RETURN | FAIL | BREAK | CONTINUE | COMMENT | LPAREN
-  static boolean statement_start(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "statement_start")) return false;
+  // !(LBRACE | RBRACE | SEMICOLON)
+  static boolean statement_recover(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "statement_recover")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_);
-    r = consumeToken(b, STR);
-    if (!r) r = consumeToken(b, NUM);
-    if (!r) r = consumeToken(b, BOOL);
-    if (!r) r = consumeToken(b, ID);
-    if (!r) r = consumeToken(b, IF);
-    if (!r) r = consumeToken(b, FOR);
-    if (!r) r = consumeToken(b, WHILE);
-    if (!r) r = consumeToken(b, RETURN);
-    if (!r) r = consumeToken(b, FAIL);
-    if (!r) r = consumeToken(b, BREAK);
-    if (!r) r = consumeToken(b, CONTINUE);
-    if (!r) r = consumeToken(b, COMMENT);
-    if (!r) r = consumeToken(b, LPAREN);
+    Marker m = enter_section_(b, l, _NOT_);
+    r = !statement_recover_0(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
 
-  /* ********************************************************** */
-  // statement_start | LBRACE
-  static boolean statement_start_or_brace(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "statement_start_or_brace")) return false;
+  // LBRACE | RBRACE | SEMICOLON
+  private static boolean statement_recover_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "statement_recover_0")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_);
-    r = statement_start(b, l + 1);
-    if (!r) r = consumeToken(b, LBRACE);
-    exit_section_(b, l, m, r, false, null);
+    r = consumeToken(b, LBRACE);
+    if (!r) r = consumeToken(b, RBRACE);
+    if (!r) r = consumeToken(b, SEMICOLON);
     return r;
   }
 
@@ -720,13 +684,13 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // (MINUS | L_NOT) unary_expression | element_call_expression
+  // (MINUS | L_NOT) unary_expression | call_or_primary_expression
   static boolean unary_expression(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "unary_expression")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_);
     r = unary_expression_0(b, l + 1);
-    if (!r) r = element_call_expression(b, l + 1);
+    if (!r) r = call_or_primary_expression(b, l + 1);
     exit_section_(b, l, m, r, false, null);
     return r;
   }
@@ -752,7 +716,7 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // vartype ID assignment?
+  // vartype ID assignment? SEMICOLON
   public static boolean variable_declaration(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "variable_declaration")) return false;
     boolean r, p;
@@ -760,7 +724,8 @@ public class TerrascriptParser implements PsiParser, LightPsiParser {
     r = vartype(b, l + 1);
     r = r && consumeToken(b, ID);
     p = r; // pin = 2
-    r = r && variable_declaration_2(b, l + 1);
+    r = r && report_error_(b, variable_declaration_2(b, l + 1));
+    r = p && consumeToken(b, SEMICOLON) && r;
     exit_section_(b, l, m, r, p, null);
     return r || p;
   }

@@ -8,10 +8,10 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static org.everbuild.terrascript.psi.TesfTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import org.everbuild.terrascript.psi.TerrascriptPsiElementImpl;
 import org.everbuild.terrascript.psi.*;
 
-public class TerrascriptIfStatementImpl extends ASTWrapperPsiElement implements TerrascriptIfStatement {
+public class TerrascriptIfStatementImpl extends TerrascriptPsiElementImpl implements TerrascriptIfStatement {
 
   public TerrascriptIfStatementImpl(@NotNull ASTNode node) {
     super(node);

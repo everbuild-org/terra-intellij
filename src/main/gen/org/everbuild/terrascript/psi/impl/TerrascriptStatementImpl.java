@@ -8,10 +8,10 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static org.everbuild.terrascript.psi.TesfTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
+import org.everbuild.terrascript.psi.TerrascriptPsiElementImpl;
 import org.everbuild.terrascript.psi.*;
 
-public class TerrascriptStatementImpl extends ASTWrapperPsiElement implements TerrascriptStatement {
+public class TerrascriptStatementImpl extends TerrascriptPsiElementImpl implements TerrascriptStatement {
 
   public TerrascriptStatementImpl(@NotNull ASTNode node) {
     super(node);
@@ -41,8 +41,8 @@ public class TerrascriptStatementImpl extends ASTWrapperPsiElement implements Te
 
   @Override
   @Nullable
-  public TerrascriptExpression getExpression() {
-    return findChildByClass(TerrascriptExpression.class);
+  public TerrascriptExpressionStatement getExpressionStatement() {
+    return findChildByClass(TerrascriptExpressionStatement.class);
   }
 
   @Override

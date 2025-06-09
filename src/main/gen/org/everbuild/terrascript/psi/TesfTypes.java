@@ -18,6 +18,7 @@ public interface TesfTypes {
   IElementType CONTROL_FLOW_STATEMENT = new TerrascriptElementType("CONTROL_FLOW_STATEMENT");
   IElementType ELSE_BLOCK = new TerrascriptElementType("ELSE_BLOCK");
   IElementType EXPRESSION = new TerrascriptElementType("EXPRESSION");
+  IElementType EXPRESSION_STATEMENT = new TerrascriptElementType("EXPRESSION_STATEMENT");
   IElementType FOR_LOOP = new TerrascriptElementType("FOR_LOOP");
   IElementType ID_ASSIGNMENT = new TerrascriptElementType("ID_ASSIGNMENT");
   IElementType IF_STATEMENT = new TerrascriptElementType("IF_STATEMENT");
@@ -92,6 +93,9 @@ public interface TesfTypes {
       }
       else if (type == EXPRESSION) {
         return new TerrascriptExpressionImpl(node);
+      }
+      else if (type == EXPRESSION_STATEMENT) {
+        return new TerrascriptExpressionStatementImpl(node);
       }
       else if (type == FOR_LOOP) {
         return new TerrascriptForLoopImpl(node);

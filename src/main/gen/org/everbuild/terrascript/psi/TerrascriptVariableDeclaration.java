@@ -16,10 +16,10 @@ public interface TerrascriptVariableDeclaration extends TerrascriptNamedElement 
   @NotNull
   PsiElement getId();
 
-  String getName();
+  @Nullable String getName();
 
-  TerrascriptVariableDeclaration setName(String newName);
+  @NotNull TerrascriptVariableDeclaration setName(@NotNull String newName);
 
-  PsiElement getNameIdentifier();
+  @NotNull PsiElement getNameIdentifier();
 
 }
