@@ -77,6 +77,13 @@
                              contextId="terrascript"/>
 
         <defaultLiveTemplates file="/liveTemplates/terrascript.xml" />
+
+        <lang.braceMatcher
+                language="terrascript"
+                implementationClass="org.everbuild.terrascript.editor.TerrascriptBraceMatcher"/>
+
+        <typedHandler implementation="org.everbuild.terrascript.editor.TerrascriptTypedHandler"/>
+
     </extensions>
     <actions>
         <action id="NEW_TERRASCRIPT_FILE"
