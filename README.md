@@ -11,5 +11,5 @@ a small programming language. This plugin provides syntax highlighting for this 
 - [x] Navigate to creation
 - [x] Static Autocompletion
 - [x] Dynamic Autocompletion
-- [ ] Snippets
+- [x] Snippets
 - [x] Inline Documentation

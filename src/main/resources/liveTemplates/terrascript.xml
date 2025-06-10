@@ -1,0 +1,23 @@
+<templateSet group="Terrascript">
+    <template name="fori" value="for (num $VAR$ = 0; $VAR$ &lt; $LIMIT$; $VAR$ = $VAR$ + 1) {&#10;    $END$&#10;}" description="Create a for loop" toReformat="true" toShortenFQNames="true">
+        <variable name="VAR" expression="" defaultValue="&quot;i&quot;" alwaysStopAt="true" />
+        <variable name="LIMIT" expression="" defaultValue="&quot;10&quot;" alwaysStopAt="true" />
+        <context>
+            <option name="terrascript" value="true" />
+        </context>
+    </template>
+
+    <template name="if" value="if ($CONDITION$) {&#10;    $END$&#10;}" description="Create an if statement" toReformat="true" toShortenFQNames="true">
+        <variable name="CONDITION" expression="" defaultValue="&quot;true&quot;" alwaysStopAt="true" />
+        <context>
+            <option name="terrascript" value="true" />
+        </context>
+    </template>
+
+    <template name="while" value="while ($CONDITION$) {&#10;    $END$&#10;}" description="Create a while loop" toReformat="true" toShortenFQNames="true">
+        <variable name="CONDITION" expression="" defaultValue="&quot;true&quot;" alwaysStopAt="true" />
+        <context>
+            <option name="terrascript" value="true" />
+        </context>
+    </template>
+</templateSet>

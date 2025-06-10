@@ -72,6 +72,11 @@
         <annotator
                 language="terrascript"
                 implementationClass="org.everbuild.terrascript.annotator.TerrascriptUnusedVariableAnnotator"/>
+
+        <liveTemplateContext implementation="org.everbuild.terrascript.template.TerrascriptLiveTemplateContext"
+                             contextId="terrascript"/>
+
+        <defaultLiveTemplates file="/liveTemplates/terrascript.xml" />
     </extensions>
     <actions>
         <action id="NEW_TERRASCRIPT_FILE"

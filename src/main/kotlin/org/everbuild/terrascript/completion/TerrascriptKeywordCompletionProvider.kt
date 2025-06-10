@@ -32,19 +32,19 @@ class TerrascriptKeywordCompletionProvider : CompletionProvider<CompletionParame
         }
     }
 
-    private fun isAtStartOfStatement(position: PsiElement): Boolean {
-        var previous = position.prevSibling
-            ?: return position.parent is TerrascriptExpression || position.parent is TerrascriptFile
-        while (previous is PsiWhiteSpace) {
-            previous = previous.prevSibling
-                ?: return position.parent is TerrascriptExpression || position.parent is TerrascriptFile
-        }
-        if (previous.text == ";") return true
-        if (previous is TerrascriptStatement) return true
-        return false
-    }
-
     companion object {
+        fun isAtStartOfStatement(position: PsiElement): Boolean {
+            var previous = position.prevSibling
+                ?: return position.parent is TerrascriptExpression || position.parent is TerrascriptFile
+            while (previous is PsiWhiteSpace) {
+                previous = previous.prevSibling
+                    ?: return position.parent is TerrascriptExpression || position.parent is TerrascriptFile
+            }
+            if (previous.text == ";") return true
+            if (previous is TerrascriptStatement) return true
+            return false
+        }
+
         // Get autocompleted to <kw>;
         val SINGLE_LINE_KEYWORDS = listOf(
             "return",

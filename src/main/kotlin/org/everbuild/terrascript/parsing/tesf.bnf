@@ -66,8 +66,8 @@ private meta statement_recover ::= !(LBRACE | RBRACE | SEMICOLON)
 
 // Each of these is now a top-level statement, making them visible to the indexer.
 statement ::=
-    variable_declaration
-    | id_assignment
+    variable_declaration SEMICOLON
+    | id_assignment SEMICOLON
     | expression_statement
     | conditional
     | while_loop
@@ -78,14 +78,14 @@ statement ::=
 
 // --- Statement Definitions ---
 // The semicolon is now consumed inside the rule that needs it.
-variable_declaration ::= vartype ID assignment? SEMICOLON {
+variable_declaration ::= vartype ID assignment? {
     mixin="org.everbuild.terrascript.psi.TerrascriptNamedElementImpl"
     implements="org.everbuild.terrascript.psi.TerrascriptNamedElement"
     methods=[getName setName getNameIdentifier]
     pin=2
 }
 
-id_assignment ::= variable_usage EQ expression SEMICOLON {pin=2}
+id_assignment ::= variable_usage EQ expression {pin=2}
 expression_statement ::= expression SEMICOLON
 control_flow_statement ::= (RETURN | FAIL | BREAK | CONTINUE) SEMICOLON
 assignment ::= EQ expression
