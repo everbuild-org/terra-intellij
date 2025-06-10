@@ -124,5 +124,8 @@ variable_usage ::= ID {
 }
 
 argument_list ::= expression (COMMA expression)*
-literal ::= NUMBER | STRING | TRUE | FALSE
+literal ::= NUMBER | STRING | TRUE | FALSE {
+    extends="TerrascriptInjectableLiteralImpl"
+    implements="TerrascriptInjectableLiteral"
+}
 vartype ::= STR | NUM | BOOL

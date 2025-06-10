@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TerrascriptLiteral extends PsiElement {
+public interface TerrascriptLiteral extends TerrascriptInjectableLiteral {
 
   @Nullable
   PsiElement getNumber();

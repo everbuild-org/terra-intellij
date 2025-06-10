@@ -56,7 +56,7 @@ public class TerrascriptVisitor extends PsiElementVisitor {
   }
 
   public void visitLiteral(@NotNull TerrascriptLiteral o) {
-    visitPsiElement(o);
+    visitInjectableLiteral(o);
   }
 
   public void visitStatement(@NotNull TerrascriptStatement o) {
@@ -76,6 +76,10 @@ public class TerrascriptVisitor extends PsiElementVisitor {
   }
 
   public void visitWhileLoop(@NotNull TerrascriptWhileLoop o) {
+    visitPsiElement(o);
+  }
+
+  public void visitInjectableLiteral(@NotNull TerrascriptInjectableLiteral o) {
     visitPsiElement(o);
   }
 

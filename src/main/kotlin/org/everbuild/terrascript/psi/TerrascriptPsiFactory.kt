@@ -18,4 +18,10 @@ object TerrascriptPsiFactory {
         return PsiFileFactory.getInstance(project)
             .createFileFromText("dummy.tesf", TerrascriptFileType, text) as TerrascriptFile
     }
+
+    fun createLiteral(project: Project, s: String): TerrascriptLiteral {
+        val text = "\"$s\";"
+        val file = createFile(project, text)
+        return (file.firstChild as TerrascriptStatement).expressionStatement!!.expression.literalList[0]
+    }
 }

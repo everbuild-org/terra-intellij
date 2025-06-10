@@ -1,0 +1,19 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
+plugins {
+    id("org.jetbrains.kotlin.jvm") version "1.9.25"
+}
+
+repositories {
+    mavenCentral()
+}
+
+tasks {
+    withType<JavaCompile> {
+        sourceCompatibility = "21"
+        targetCompatibility = "21"
+    }
+    withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
+        compilerOptions.jvmTarget.set(JvmTarget.JVM_21)
+    }
+}

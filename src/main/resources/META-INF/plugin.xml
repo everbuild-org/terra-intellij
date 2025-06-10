@@ -83,7 +83,22 @@
                 implementationClass="org.everbuild.terrascript.editor.TerrascriptBraceMatcher"/>
 
         <typedHandler implementation="org.everbuild.terrascript.editor.TerrascriptTypedHandler"/>
+        
+        <languageInjector implementation="org.everbuild.terrascript.inject.TerrascriptStringInjector" />
 
+        <fileType name="terrascript_blockstate"
+                  implementationClass="org.everbuild.terrascript.stringcomp.StringcompFileType"
+                  fieldName="INSTANCE"
+                  language="terrascript_blockstate"
+                  extensions="minecraft_blockstate"/>
+
+        <lang.parserDefinition language="terrascript_blockstate"
+                               implementationClass="org.everbuild.terrascript.stringcomp.StringcompParserDefinition"/>
+
+        <completion.contributor
+                language="terrascript_blockstate"
+                implementationClass="org.everbuild.terrascript.stringcomp.completion.StringcompCompletionContributor"/>
+        
     </extensions>
     <actions>
         <action id="NEW_TERRASCRIPT_FILE"

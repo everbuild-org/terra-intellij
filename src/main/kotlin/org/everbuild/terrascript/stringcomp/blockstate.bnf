@@ -1,0 +1,29 @@
+{
+    parserClass="org.everbuild.terrascript.stringcomp.BlockstateParser"
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+  psiClassPrefix="Stringcomp"
+  psiImplClassSuffix="Impl"
+  psiPackage="org.everbuild.terrascript.stringcomp.psi"
+  psiImplPackage="org.everbuild.terrascript.stringcomp.psi.impl"
+  elementTypeHolderClass="org.everbuild.terrascript.stringcomp.psi.StringcompTypes"
+  elementTypeClass="org.everbuild.terrascript.stringcomp.StringcompElementType"
+  tokenTypeClass="org.everbuild.terrascript.stringcomp.StringcompTokenType"
+
+  tokens = [
+    COLON = ":"
+
+    ID = "regexp:[a-zA-Z_][a-zA-Z0-9_]*"
+    VALUE = "regexp:[a-zA-Z0-9_]*"
+    LBRACK = "["
+    RBRACK = "]"
+    EQ = "="
+    COMMA = ","
+
+    ANY = "regexp:.*"
+  ]
+}
+
+file ::= blockstate? ANY*
+blockstate ::= ID COLON? ID? statedefs?
+statedefs ::= LBRACK args? RBRACK?
+args ::= ID EQ? VALUE? COMMA? args?
