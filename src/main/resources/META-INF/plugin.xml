@@ -64,6 +64,14 @@
         <codeInsight.parameterInfo
                 language="terrascript"
                 implementationClass="org.everbuild.terrascript.docs.TerrascriptParameterInfoHandler"/>
+
+        <annotator
+                language="terrascript"
+                implementationClass="org.everbuild.terrascript.annotator.TerrascriptUndefinedVariableAnnotator"/>
+
+        <annotator
+                language="terrascript"
+                implementationClass="org.everbuild.terrascript.annotator.TerrascriptUnusedVariableAnnotator"/>
     </extensions>
     <actions>
         <action id="NEW_TERRASCRIPT_FILE"
