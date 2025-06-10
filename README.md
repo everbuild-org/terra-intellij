@@ -9,7 +9,7 @@ a small programming language. This plugin provides syntax highlighting for this 
 - [x] Formatting
 - [x] Refactor/Rename
 - [x] Navigate to creation
-- [ ] Static Autocompletion
-- [ ] Dynamic Autocompletion
+- [x] Static Autocompletion
+- [x] Dynamic Autocompletion
 - [ ] Snippets
-- [ ] Inline Documentation
+- [x] Inline Documentation

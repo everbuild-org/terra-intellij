@@ -119,7 +119,9 @@ call_expression ::= ID LPAREN argument_list? RPAREN {
 }
 private primary_expression ::= literal | variable_usage | LPAREN expression RPAREN
 
-variable_usage ::= ID
+variable_usage ::= ID {
+    extends="TerrascriptVariableUsageElementImpl"
+}
 
 argument_list ::= expression (COMMA expression)*
 literal ::= NUMBER | STRING | TRUE | FALSE

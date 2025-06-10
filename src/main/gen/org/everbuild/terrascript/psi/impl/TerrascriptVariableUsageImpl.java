@@ -8,12 +8,11 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static org.everbuild.terrascript.psi.TesfTypes.*;
-import org.everbuild.terrascript.psi.TerrascriptPsiElementImpl;
 import org.everbuild.terrascript.psi.*;
 
-public class TerrascriptVariableUsageImpl extends TerrascriptPsiElementImpl implements TerrascriptVariableUsage {
+public class TerrascriptVariableUsageImpl extends TerrascriptVariableUsageElementImpl implements TerrascriptVariableUsage {
 
-  public TerrascriptVariableUsageImpl(@NotNull ASTNode node) {
+  public TerrascriptVariableUsageImpl(ASTNode node) {
     super(node);
   }
 

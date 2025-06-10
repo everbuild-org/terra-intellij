@@ -19,8 +19,8 @@ open class TerrascriptDocumentedElementImpl(node: ASTNode) : TerrascriptPsiEleme
 
     override fun computeDocumentation(): DocumentationResult? {
         val html = TerrascriptDocumentationGenerator
-            .generateDocumentation(this.originalElement.asSafely<TerrascriptCallExpression>()?.id?.text ?: "cos")
-            ?: return null.also { println("No documentation found for $this") }
+            .generateDocumentation(this.originalElement.asSafely<TerrascriptCallExpression>()?.id?.text ?: return null)
+            ?: return null
         return DocumentationResult.documentation(html)
     }
 
