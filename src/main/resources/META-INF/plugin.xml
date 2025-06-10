@@ -8,13 +8,21 @@
     <name>Terra World Generator Support</name>
 
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
-    <vendor url="https://everbuild.org">Everbuild Development</vendor>
+    <vendor url="https://github.com/PolyhedralDev/">Polyhedral Development</vendor>
 
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-    Support the .tesf file format for Terra script. Terra is a data-driven World Generator for minecraft with a scripting
-    language
+   This plugin adds support for the <code>.tesf</code> file format, designed for Terra, a data-driven World Generator for Minecraft.
+
+    <h3>Key Features:</h3>
+    <ul>
+        <li><b>Syntax Highlighting and Formatting</b>: Offers full syntax highlighting for <code>.tesf</code> files, making it easier to read and write Terra scripts. It also includes a code formatter to maintain a consistent style across your projects.</li>
+        <li><b>Code Completion and Analysis</b>: Provides intelligent code completion to help you write scripts faster and with fewer errors.</li>
+        <li><b>Structure View</b>: Includes a structure view for <code>.tesf</code> files</li>
+        <li><b>Refactoring and Navigation</b>: Supports refactoring of variables. You can also navigate between symbol declarations and their usages.</li>
+        <li><b>Documentation and Templates</b>: Offers built-in support for documentation and parameter info, helping you understand the available functions and their usage. It also comes with live templates to speed up common coding tasks.</li>
+    </ul>
   ]]></description>
 
     <!-- Product and plugin compatibility requirements.
@@ -76,15 +84,15 @@
         <liveTemplateContext implementation="org.everbuild.terrascript.template.TerrascriptLiveTemplateContext"
                              contextId="terrascript"/>
 
-        <defaultLiveTemplates file="/liveTemplates/terrascript.xml" />
+        <defaultLiveTemplates file="/liveTemplates/terrascript.xml"/>
 
         <lang.braceMatcher
                 language="terrascript"
                 implementationClass="org.everbuild.terrascript.editor.TerrascriptBraceMatcher"/>
 
         <typedHandler implementation="org.everbuild.terrascript.editor.TerrascriptTypedHandler"/>
-        
-        <languageInjector implementation="org.everbuild.terrascript.inject.TerrascriptStringInjector" />
+
+        <languageInjector implementation="org.everbuild.terrascript.inject.TerrascriptStringInjector"/>
 
         <fileType name="terrascript_blockstate"
                   implementationClass="org.everbuild.terrascript.stringcomp.StringcompFileType"
@@ -98,7 +106,7 @@
         <completion.contributor
                 language="terrascript_blockstate"
                 implementationClass="org.everbuild.terrascript.stringcomp.completion.StringcompCompletionContributor"/>
-        
+
     </extensions>
     <actions>
         <action id="NEW_TERRASCRIPT_FILE"

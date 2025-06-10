@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "org.everbuild"
-version = "1.0-SNAPSHOT"
+version = "1.0.0"
 
 repositories {
     mavenCentral()
@@ -35,8 +35,8 @@ intellijPlatform {
         }
 
         changeNotes = """
-      Initial version
-    """.trimIndent()
+            1.0.0 - Initial release with <code>.tesf</code> support   
+        """.trimIndent()
     }
 }
 
@@ -44,7 +44,6 @@ tasks.register<UpdateRegistryDataTask>("updateRegistryData") {
     mcVersion.set("1.21.5")
     serverJarUrl.set("https://piston-data.mojang.com/v1/objects/e6ec2f64e6080b9b5d9b471b291c33cc7f509733/server.jar")
 }
-
 
 sourceSets {
     main {
