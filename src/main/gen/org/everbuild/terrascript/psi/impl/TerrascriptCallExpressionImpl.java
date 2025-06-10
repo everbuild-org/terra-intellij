@@ -8,12 +8,11 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static org.everbuild.terrascript.psi.TesfTypes.*;
-import org.everbuild.terrascript.psi.TerrascriptPsiElementImpl;
 import org.everbuild.terrascript.psi.*;
 
-public class TerrascriptCallExpressionImpl extends TerrascriptPsiElementImpl implements TerrascriptCallExpression {
+public class TerrascriptCallExpressionImpl extends TerrascriptDocumentedElementImpl implements TerrascriptCallExpression {
 
-  public TerrascriptCallExpressionImpl(@NotNull ASTNode node) {
+  public TerrascriptCallExpressionImpl(ASTNode node) {
     super(node);
   }
 

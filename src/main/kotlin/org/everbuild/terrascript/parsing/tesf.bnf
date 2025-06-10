@@ -114,7 +114,9 @@ private multiplicative_expression ::= unary_expression ((MUL | DIV | MOD) unary_
 private unary_expression ::= (MINUS | L_NOT) unary_expression | call_or_primary_expression
 private call_or_primary_expression ::= call_expression | primary_expression
 
-call_expression ::= ID LPAREN argument_list? RPAREN
+call_expression ::= ID LPAREN argument_list? RPAREN {
+    extends="TerrascriptDocumentedElementImpl"
+}
 private primary_expression ::= literal | variable_usage | LPAREN expression RPAREN
 
 variable_usage ::= ID
