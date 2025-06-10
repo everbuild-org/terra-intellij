@@ -60,6 +60,10 @@
 
         <platform.backend.documentation.targetProvider
                 implementation="org.everbuild.terrascript.docs.TerrascriptDocumentationTargetProvider"/>
+
+        <codeInsight.parameterInfo
+                language="terrascript"
+                implementationClass="org.everbuild.terrascript.docs.TerrascriptParameterInfoHandler"/>
     </extensions>
     <actions>
         <action id="NEW_TERRASCRIPT_FILE"
