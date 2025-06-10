@@ -3,6 +3,7 @@ package org.everbuild.terrascript.completion
 import com.intellij.codeInsight.completion.CompletionParameters
 import com.intellij.codeInsight.completion.CompletionProvider
 import com.intellij.codeInsight.completion.CompletionResultSet
+import com.intellij.codeInsight.completion.PrioritizedLookupElement
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.icons.AllIcons
 import com.intellij.psi.util.PsiTreeUtil
@@ -15,6 +16,8 @@ class TerrascriptVariableCompletionProvider : CompletionProvider<CompletionParam
         context: ProcessingContext,
         resultSet: CompletionResultSet
     ) {
+        val parent = parameters.position.parent
+        if (parent is TerrascriptVariableDeclaration) return
         val position = parameters.position
         val file = position.containingFile
 
@@ -29,6 +32,7 @@ class TerrascriptVariableCompletionProvider : CompletionProvider<CompletionParam
                 val lookupElement = LookupElementBuilder.create(varName)
                     .withIcon(AllIcons.Nodes.Variable)
                     .withTypeText(varType)
+                    .let { PrioritizedLookupElement.withPriority(it, 100.0) }
 
                 resultSet.addElement(lookupElement)
             }

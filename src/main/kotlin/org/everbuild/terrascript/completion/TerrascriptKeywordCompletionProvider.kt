@@ -3,6 +3,7 @@ package org.everbuild.terrascript.completion
 import com.intellij.codeInsight.completion.CompletionParameters
 import com.intellij.codeInsight.completion.CompletionProvider
 import com.intellij.codeInsight.completion.CompletionResultSet
+import com.intellij.codeInsight.completion.PrioritizedLookupElement
 import com.intellij.codeInsight.lookup.LookupElementBuilder
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiWhiteSpace
@@ -25,6 +26,7 @@ class TerrascriptKeywordCompletionProvider : CompletionProvider<CompletionParame
                     LookupElementBuilder.create(kw + if (kw in SINGLE_LINE_KEYWORDS) ";" else "")
                         .withPresentableText(kw)
                         .withBoldness(true)
+                        .let { PrioritizedLookupElement.withPriority(it, 10.0) }
                 )
             }
         }

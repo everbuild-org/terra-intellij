@@ -3,7 +3,7 @@ package org.everbuild.terrascript.completion
 import com.intellij.codeInsight.completion.CompletionContributor
 import com.intellij.codeInsight.completion.CompletionType
 import com.intellij.patterns.PlatformPatterns.psiElement
-import org.everbuild.terrascript.psi.TerrascriptVariableUsage
+import org.everbuild.terrascript.psi.TesfTypes
 
 class TerrascriptCompletionContributor : CompletionContributor() {
     init {
@@ -15,8 +15,14 @@ class TerrascriptCompletionContributor : CompletionContributor() {
 
         extend(
             CompletionType.BASIC,
-            psiElement().withParent(TerrascriptVariableUsage::class.java),
+            psiElement(TesfTypes.ID),
             TerrascriptVariableCompletionProvider()
+        )
+
+        extend(
+            CompletionType.BASIC,
+            psiElement(TesfTypes.ID),
+            TerrascriptFunctionCompletionProvider()
         )
     }
 }
