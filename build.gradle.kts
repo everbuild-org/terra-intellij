@@ -5,7 +5,7 @@ plugins {
     kotlin("plugin.serialization") version "1.9.25"
 }
 
-group = "org.everbuild"
+group = "com.dfsek.terra.codetool"
 version = "1.0.0"
 
 repositories {

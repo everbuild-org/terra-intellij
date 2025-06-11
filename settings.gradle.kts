@@ -1,1 +1,1 @@
-rootProject.name = "terrascript"
+rootProject.name = "CodeTool"

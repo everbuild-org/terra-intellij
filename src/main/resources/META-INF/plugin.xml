@@ -1,7 +1,7 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
-    <id>org.everbuild.terrascript</id>
+    <id>com.dfsek.terra.codetool</id>
 
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
@@ -34,86 +34,86 @@
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
     <extensions defaultExtensionNs="com.intellij">
         <fileType name="terrascript"
-                  implementationClass="org.everbuild.terrascript.TerrascriptFileType"
+                  implementationClass="com.dfsek.terra.codetool.TerrascriptFileType"
                   fieldName="INSTANCE"
                   language="terrascript"
                   extensions="tesf"/>
 
         <lang.parserDefinition language="terrascript"
-                               implementationClass="org.everbuild.terrascript.parsing.TerrascriptParserDefinition"/>
+                               implementationClass="com.dfsek.terra.codetool.parsing.TerrascriptParserDefinition"/>
 
         <lang.syntaxHighlighterFactory
                 language="terrascript"
-                implementationClass="org.everbuild.terrascript.syntax.TerrascriptSyntaxHighlighterFactory"/>
+                implementationClass="com.dfsek.terra.codetool.syntax.TerrascriptSyntaxHighlighterFactory"/>
 
-        <colorSettingsPage implementation="org.everbuild.terrascript.syntax.TerrascriptColorSettingsPage"
+        <colorSettingsPage implementation="com.dfsek.terra.codetool.syntax.TerrascriptColorSettingsPage"
                            id="terrascript"
                            order="last"/>
 
         <lang.formatter language="terrascript"
-                        implementationClass="org.everbuild.terrascript.formatting.TerrascriptFormattingModelBuilder"/>
+                        implementationClass="com.dfsek.terra.codetool.formatting.TerrascriptFormattingModelBuilder"/>
 
         <completion.contributor language="terrascript"
-                                implementationClass="org.everbuild.terrascript.completion.TerrascriptCompletionContributor"/>
+                                implementationClass="com.dfsek.terra.codetool.completion.TerrascriptCompletionContributor"/>
 
         <psi.referenceContributor language="terrascript"
-                                  implementation="org.everbuild.terrascript.reference.TerrascriptReferenceContributor"/>
+                                  implementation="com.dfsek.terra.codetool.reference.TerrascriptReferenceContributor"/>
 
         <lang.psiStructureViewFactory language="terrascript"
-                                      implementationClass="org.everbuild.terrascript.structure.TerrascriptStructureViewFactory"/>
+                                      implementationClass="com.dfsek.terra.codetool.structure.TerrascriptStructureViewFactory"/>
 
         <lang.refactoringSupport
                 language="terrascript"
-                implementationClass="org.everbuild.terrascript.reference.TerrascriptRefactoringSupportProvider"/>
+                implementationClass="com.dfsek.terra.codetool.reference.TerrascriptRefactoringSupportProvider"/>
 
         <platform.backend.documentation.targetProvider
-                implementation="org.everbuild.terrascript.docs.TerrascriptDocumentationTargetProvider"/>
+                implementation="com.dfsek.terra.codetool.docs.TerrascriptDocumentationTargetProvider"/>
 
         <codeInsight.parameterInfo
                 language="terrascript"
-                implementationClass="org.everbuild.terrascript.docs.TerrascriptParameterInfoHandler"/>
+                implementationClass="com.dfsek.terra.codetool.docs.TerrascriptParameterInfoHandler"/>
 
         <annotator
                 language="terrascript"
-                implementationClass="org.everbuild.terrascript.annotator.TerrascriptUndefinedVariableAnnotator"/>
+                implementationClass="com.dfsek.terra.codetool.annotator.TerrascriptUndefinedVariableAnnotator"/>
 
         <annotator
                 language="terrascript"
-                implementationClass="org.everbuild.terrascript.annotator.TerrascriptUnusedVariableAnnotator"/>
+                implementationClass="com.dfsek.terra.codetool.annotator.TerrascriptUnusedVariableAnnotator"/>
 
-        <liveTemplateContext implementation="org.everbuild.terrascript.template.TerrascriptLiveTemplateContext"
+        <liveTemplateContext implementation="com.dfsek.terra.codetool.template.TerrascriptLiveTemplateContext"
                              contextId="terrascript"/>
 
         <defaultLiveTemplates file="/liveTemplates/terrascript.xml"/>
 
         <lang.braceMatcher
                 language="terrascript"
-                implementationClass="org.everbuild.terrascript.editor.TerrascriptBraceMatcher"/>
+                implementationClass="com.dfsek.terra.codetool.editor.TerrascriptBraceMatcher"/>
 
-        <typedHandler implementation="org.everbuild.terrascript.editor.TerrascriptTypedHandler"/>
+        <typedHandler implementation="com.dfsek.terra.codetool.editor.TerrascriptTypedHandler"/>
 
-        <languageInjector implementation="org.everbuild.terrascript.inject.TerrascriptStringInjector"/>
+        <languageInjector implementation="com.dfsek.terra.codetool.inject.TerrascriptStringInjector"/>
 
         <fileType name="terrascript_blockstate"
-                  implementationClass="org.everbuild.terrascript.stringcomp.StringcompFileType"
+                  implementationClass="com.dfsek.terra.codetool.stringcomp.StringcompFileType"
                   fieldName="INSTANCE"
                   language="terrascript_blockstate"
                   extensions="minecraft_blockstate"/>
 
         <lang.parserDefinition language="terrascript_blockstate"
-                               implementationClass="org.everbuild.terrascript.stringcomp.StringcompParserDefinition"/>
+                               implementationClass="com.dfsek.terra.codetool.stringcomp.StringcompParserDefinition"/>
 
         <completion.contributor
                 language="terrascript_blockstate"
-                implementationClass="org.everbuild.terrascript.stringcomp.completion.StringcompCompletionContributor"/>
+                implementationClass="com.dfsek.terra.codetool.stringcomp.completion.StringcompCompletionContributor"/>
 
     </extensions>
     <actions>
         <action id="NEW_TERRASCRIPT_FILE"
-                class="org.everbuild.terrascript.action.CreateNewTesfFile"
+                class="com.dfsek.terra.codetool.action.CreateNewTesfFile"
                 text="Terrascript"
                 description="Create new Terrascript file"
-                icon="org.everbuild.terrascript.TerraIcons.TesfFile">
+                icon="com.dfsek.terra.codetool.TerraIcons.TesfFile">
             <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFromTemplate"/>
         </action>
     </actions>
