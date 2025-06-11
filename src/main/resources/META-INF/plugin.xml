@@ -29,6 +29,7 @@
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.lang</depends>
+    <depends>org.jetbrains.plugins.yaml</depends>
 
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
@@ -106,6 +107,8 @@
         <completion.contributor
                 language="terrascript_blockstate"
                 implementationClass="com.dfsek.terra.codetool.stringcomp.completion.StringcompCompletionContributor"/>
+
+        <iconProvider implementation="com.dfsek.terra.codetool.icon.YamlIconProvider"/>
 
     </extensions>
     <actions>
