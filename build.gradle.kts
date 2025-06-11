@@ -1,8 +1,8 @@
 plugins {
     id("java")
-    id("org.jetbrains.kotlin.jvm") version "1.9.25"
-    id("org.jetbrains.intellij.platform") version "2.3.0"
-    kotlin("plugin.serialization") version "1.9.25"
+    id("org.jetbrains.kotlin.jvm") version "2.1.21"
+    id("org.jetbrains.intellij.platform") version "2.6.0"
+    kotlin("plugin.serialization") version "2.1.21"
 }
 
 group = "com.dfsek.terra.codetool"
@@ -19,12 +19,12 @@ repositories {
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-intellij-platform-gradle-plugin.html
 dependencies {
     intellijPlatform {
-        create("IC", "2024.2.5")
+        create("IC", "2025.1.2")
         testFramework(org.jetbrains.intellij.platform.gradle.TestFrameworkType.Platform)
 
         bundledPlugin("org.jetbrains.plugins.yaml")
     }
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.1")
 }
 
 intellijPlatform {
