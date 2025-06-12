@@ -1,6 +1,6 @@
 # Terra Support for Intellij
 
-[![JetBrains Marketplace](https://img.shields.io/jetbrains/plugin/v/TODO_TODO_TODO.svg)](https://plugins.jetbrains.com/plugin/TODO_TODO_TODO)
+[![JetBrains Marketplace](https://img.shields.io/jetbrains/plugin/v/27620-terra-codetool.svg)](https://plugins.jetbrains.com/plugin/27620-terra-codetool)
 
 [Terra](https://terra.polydev.org/) is a modern world generation modding platform, primarily for Minecraft. Terra allows complete
 customization of world generation with an advanced API, tightly integrated with a powerful configuration system. It also includes
