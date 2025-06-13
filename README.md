@@ -22,7 +22,7 @@ a small programming language. This plugin provides syntax highlighting for this 
 - Open IntelliJ IDEA
 - Go to Settings/Preferences > Plugins
 - Switch to "Marketplace" tab
-- Search for "Terra World Generator Support"
+- Search for "Terra CodeTool"
 - Click "Install"
 
 ## Usage
