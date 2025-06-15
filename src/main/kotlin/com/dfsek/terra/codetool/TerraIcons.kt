@@ -10,4 +10,5 @@ object TerraIcons {
     @JvmField val OreFile = IconLoader.getIcon("/icons/ore.svg", TerraIcons::class.java)
     @JvmField val ScatteredOreFile = IconLoader.getIcon("/icons/scattered_ore.svg", TerraIcons::class.java)
     @JvmField val PaletteFile = IconLoader.getIcon("/icons/palette.svg", TerraIcons::class.java)
+    @JvmField val TerraSimple = IconLoader.getIcon("/icons/terra_simple.svg", TerraIcons::class.java)
 }

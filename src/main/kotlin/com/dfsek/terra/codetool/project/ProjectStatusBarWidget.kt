@@ -1,5 +1,6 @@
 package com.dfsek.terra.codetool.project
 
+import com.dfsek.terra.codetool.TerraIcons
 import com.intellij.openapi.application.NonBlockingReadAction
 import com.intellij.openapi.application.smartReadAction
 import com.intellij.openapi.application.writeAction
@@ -55,10 +56,17 @@ class ProjectStatusBarWidget(val project: Project, val scope: CoroutineScope) : 
     }
     
     override fun getPresentation(): StatusBarWidget.WidgetPresentation? {
-        return object : StatusBarWidget.TextPresentation {
-            override fun getText(): String = lastRoot?.id ?: ""
-            override fun getAlignment(): Float = Component.CENTER_ALIGNMENT
-            override fun getTooltipText(): String? = lastRoot?.addons?.let { formatThreeElementsPlusAmount(it) }
+        return object : StatusBarWidget.IconPresentation {
+            override fun getIcon() = TerraIcons.TerraSimple
+            override fun getTooltipText(): String? {
+                val id = lastRoot?.id
+                val addons = lastRoot?.addons?.let { formatThreeElementsPlusAmount(it) }
+                return when {
+                    id != null && addons != null && addons != "Empty" -> "$id: $addons"
+                    id != null -> id
+                    else       -> "No Terra project found"
+                }
+            }
             override fun getClickConsumer(): Consumer<MouseEvent> = Consumer {
                 FileEditorManager.getInstance(project)
                     .openFile(lastRoot?.root ?: return@Consumer, true)
