@@ -1,25 +1,26 @@
 package com.dfsek.terra.codetool.project
 
-import com.dfsek.terra.codetool.TerrascriptFileType
+import com.intellij.openapi.application.NonBlockingReadAction
+import com.intellij.openapi.application.smartReadAction
 import com.intellij.openapi.application.writeAction
 import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.fileEditor.FileEditorManagerEvent
 import com.intellij.openapi.fileEditor.FileEditorManagerListener
-import com.intellij.openapi.fileTypes.FileType
+import com.intellij.openapi.project.DumbService
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.wm.StatusBar
 import com.intellij.openapi.wm.StatusBarWidget
-import com.intellij.psi.search.FileTypeIndex
-import com.intellij.util.indexing.events.IndexedFilesListener
+import com.intellij.util.Consumer
 import com.intellij.util.messages.MessageBusConnection
 import java.awt.Component
+import java.awt.event.MouseEvent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.jetbrains.annotations.NonNls
-import org.jetbrains.yaml.YAMLFileType
+import kotlinx.coroutines.runBlocking
 
 class ProjectStatusBarWidget(val project: Project, val scope: CoroutineScope) : StatusBarWidget, StatusBarWidget.Multiframe {
     private var connection: MessageBusConnection? = null
@@ -27,7 +28,7 @@ class ProjectStatusBarWidget(val project: Project, val scope: CoroutineScope) : 
     override fun ID(): @NonNls String = "terra_project_name"
     
     override fun install(statusBar: StatusBar) {
-        connection = project.messageBus.connect()
+        connection = project.messageBus.connect(this)
         connection?.subscribe(FileEditorManagerListener.FILE_EDITOR_MANAGER, object : FileEditorManagerListener {
             override fun fileOpened(source: FileEditorManager, file: VirtualFile) {
                 update(statusBar)
@@ -41,13 +42,12 @@ class ProjectStatusBarWidget(val project: Project, val scope: CoroutineScope) : 
                 update(statusBar)
             }
         })
-        connection?.subscribe(
-            FileTypeIndex.INDEX_CHANGE_TOPIC,
-            FileTypeIndex.IndexChangeListener { fileType ->
-                if (fileType == TerrascriptFileType || fileType == YAMLFileType.YML) update(
-                    statusBar
-                                                                                           )
-            })
+        connection?.subscribe(DumbService.DUMB_MODE, object : DumbService.DumbModeListener {
+            override fun exitDumbMode() {
+                update(statusBar)
+            }
+        })
+        update(statusBar)
     }
     
     override fun dispose() {
@@ -59,6 +59,10 @@ class ProjectStatusBarWidget(val project: Project, val scope: CoroutineScope) : 
             override fun getText(): String = lastRoot?.id ?: ""
             override fun getAlignment(): Float = Component.CENTER_ALIGNMENT
             override fun getTooltipText(): String? = lastRoot?.addons?.let { formatThreeElementsPlusAmount(it) }
+            override fun getClickConsumer(): Consumer<MouseEvent> = Consumer {
+                FileEditorManager.getInstance(project)
+                    .openFile(lastRoot?.root ?: return@Consumer, true)
+            }
         }
     }
     
@@ -70,7 +74,9 @@ class ProjectStatusBarWidget(val project: Project, val scope: CoroutineScope) : 
     
     private fun update(statusBar: StatusBar) = scope.launch {
         withContext(Dispatchers.IO) {
-            writeAction { updateContent() }
+            smartReadAction(project) {
+                updateContent()
+            }
         }
         statusBar.updateWidget(ID())
     }
