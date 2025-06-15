@@ -61,7 +61,8 @@
 
         <statusBarWidgetFactory implementation="com.dfsek.terra.codetool.project.ProjectStatusBarWidgetFactory" id="terra_project"/>
         <fileBasedIndex implementation="com.dfsek.terra.codetool.project.ProjectRootIndexExtension" />
-        <fileBasedIndex implementation="com.dfsek.terra.codetool.project.YamlNameIndexExtension" />
+        <fileBasedIndex implementation="com.dfsek.terra.codetool.project.NameIndexExtension" />
+        <fileBasedIndex implementation="com.dfsek.terra.codetool.project.FileTypeIndexExtension" />
     </extensions>
     <actions>
         <action id="NEW_TERRASCRIPT_FILE"
